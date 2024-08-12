@@ -59,10 +59,9 @@ public:
 	[[nodiscard]] static fs::path GetMlcPath();
 
 	template <typename ...TArgs>
+	[[nodiscard]] static fs::path GetMlcPath(TArgs&&... args){ return GetPath(GetMlcPath(), std::forward<TArgs>(args)...); };
 	static bool IsCustomMlcPath();
 	static bool IsCommandLineMlcPath();
-
-	[[nodiscard]] static fs::path GetMlcPath(TArgs&&... args){ return GetPath(GetMlcPath(), std::forward<TArgs>(args)...); };
 
 	// get mlc path to default cemu root dir/mlc01
 	[[nodiscard]] static fs::path GetDefaultMLCPath();
