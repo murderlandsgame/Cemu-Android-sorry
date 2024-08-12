@@ -7,6 +7,7 @@
 
 #include "Cafe/HW/Latte/Core/LatteBufferCache.h"
 #include "Cafe/HW/Latte/Core/LattePerformanceMonitor.h"
+#include "Cafe/HW/Latte/Core/LatteOverlay.h"
 
 #include "Cafe/HW/Latte/LegacyShaderDecompiler/LatteDecompiler.h"
 
@@ -286,6 +287,9 @@ void VulkanRenderer::GetDeviceFeatures()
 
 	if (!m_featureControl.deviceExtensions.pipeline_creation_cache_control)
 		cemuLog_log(LogType::Force, "VK_EXT_pipeline_creation_cache_control not supported. Cannot use asynchronous shader and pipeline compilation");
+		// if async shader compilation is enabled show warning message
+		if (GetConfig().async_compile)
+			LatteOverlay_pushNotification(_("Async shader compile is enabled but not supported by the graphics driver\nCemu will use synchronous compilation which can cause additional stutter").utf8_string(), 10000);
 
 	if (!m_featureControl.deviceExtensions.custom_border_color_without_format)
 	{
@@ -2469,6 +2473,11 @@ void VulkanRenderer::GetTextureFormatInfoVK(Latte::E_GX2SURFFMT format, bool isD
 			// used by Color Splash and Resident Evil
 			formatInfoOut->vkImageFormat = VK_FORMAT_R8G8B8A8_UINT; // todo - should we use ABGR format?
 			formatInfoOut->decoder = TextureDecoder_X24_G8_UINT::getInstance(); // todo - verify
+		case Latte::E_GX2SURFFMT::R32_X8_FLOAT:
+			// seen in Disney Infinity 3.0
+			formatInfoOut->vkImageFormat = VK_FORMAT_R32_SFLOAT;
+			formatInfoOut->decoder = TextureDecoder_NullData64::getInstance();
+			break;
 		default:
 			cemuLog_log(LogType::Force, "Unsupported color texture format {:04x}", (uint32)format);
 			cemu_assert_debug(false);

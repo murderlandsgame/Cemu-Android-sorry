@@ -2,10 +2,11 @@ name: Android build
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["android"]
-  pull_request:
-    branches: ["android"]
+    inputs:
+      branch:
+        description: 'select branch to build (default: android)'
+        required: false
+        default: 'android'
 
 jobs:
   build:
