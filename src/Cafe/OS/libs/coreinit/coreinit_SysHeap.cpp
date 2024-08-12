@@ -14,10 +14,13 @@ namespace coreinit
 		return coreinit::MEMAllocFromExpHeapEx(_sysHeapHandle, size, alignment);
 	}
 
-	void OSFreeToSystem(void* ptr)
+	void export_OSAllocFromSystem(PPCInterpreter_t* hCPU)
 	{
-		_sysHeapFreeCounter++;
-		coreinit::MEMFreeToExpHeap(_sysHeapHandle, ptr);
+		ppcDefineParamU32(size, 0);
+		ppcDefineParamS32(alignment, 1);
+		MEMPTR<void> mem = OSAllocFromSystem(size, alignment);
+		cemuLog_logDebug(LogType::Force, "OSAllocFromSystem(0x{:x}, {}) -> 0x{:08x}", size, alignment, mem.GetMPTR());
+		osLib_returnFromFunction(hCPU, mem.GetMPTR());
 	}
 
 	void InitSysHeap()
@@ -31,8 +34,7 @@ namespace coreinit
 
 	void InitializeSysHeap()
 	{
-		cafeExportRegister("h264", OSAllocFromSystem, LogType::CoreinitMem);
-		cafeExportRegister("h264", OSFreeToSystem, LogType::CoreinitMem);
+		osLib_addFunction("coreinit", "OSAllocFromSystem", export_OSAllocFromSystem);
 	}
 
 }

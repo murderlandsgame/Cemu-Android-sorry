@@ -212,12 +212,11 @@ static void PPCInterpreter_SUBF(PPCInterpreter_t* hCPU, uint32 opcode)
 
 static void PPCInterpreter_SUBFO(PPCInterpreter_t* hCPU, uint32 opcode)
 {
-	// (Don't Starve Giant Edition uses this)
+	// untested (Don't Starve Giant Edition uses this)
 	// also used by DS Virtual Console (Super Mario 64 DS)
 	PPC_OPC_TEMPL3_XO();
-	uint32 result = ~hCPU->gpr[rA] + hCPU->gpr[rB] + 1;
-	PPCInterpreter_setXerOV(hCPU, checkAdditionOverflow(~hCPU->gpr[rA], hCPU->gpr[rB], result));
-	hCPU->gpr[rD] = result;
+	hCPU->gpr[rD] = ~hCPU->gpr[rA] + hCPU->gpr[rB] + 1;
+	PPCInterpreter_setXerOV(hCPU, checkAdditionOverflow(~hCPU->gpr[rA], hCPU->gpr[rB], hCPU->gpr[rD]));
 	if (opHasRC())
 		ppc_update_cr0(hCPU, hCPU->gpr[rD]);
 	PPCInterpreter_nextInstruction(hCPU);

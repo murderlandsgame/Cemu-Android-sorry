@@ -49,8 +49,7 @@ class EmulationState {
 
 	void initializeActiveSettings(const fs::path& dataPath, const fs::path& cachePath)
 	{
-		//needs rewrite
-		ActiveSettings::SetPaths({}, dataPath, dataPath, cachePath, dataPath);
+		ActiveSettings::LoadOnce({}, dataPath, dataPath, cachePath, dataPath);
 	}
 
 	void clearSurface(bool isMainCanvas)

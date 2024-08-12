@@ -42,6 +42,7 @@ private:
 	wxCheckBox* m_save_padwindow_position_size;
 	wxCheckBox* m_discord_presence, *m_fullscreen_menubar;
 	wxCheckBox* m_auto_update, *m_save_screenshot;
+	wxCheckBox* m_permanent_storage;
 	wxCheckBox* m_disable_screensaver;
 #if BOOST_OS_LINUX && defined(ENABLE_FERAL_GAMEMODE)
    	wxCheckBox* m_feral_gamemode;
@@ -95,7 +96,7 @@ private:
 	void OnRemovePathClicked(wxCommandEvent& event);
 	void OnActiveAccountChanged(wxCommandEvent& event);
 	void OnMLCPathSelect(wxCommandEvent& event);
-	void OnMLCPathClear(wxCommandEvent& event);
+	void OnMLCPathChar(wxKeyEvent& event);
 	void OnShowOnlineValidator(wxCommandEvent& event);
 	void OnAccountServiceChanged(wxCommandEvent& event);
 	static wxString GetOnlineAccountErrorMessage(OnlineAccountError error);

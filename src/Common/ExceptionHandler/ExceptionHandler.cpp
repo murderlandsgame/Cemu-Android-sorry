@@ -6,6 +6,8 @@
 #include "Cafe/HW/Espresso/Debugger/GDBStub.h"
 #include "ExceptionHandler.h"
 
+void DebugLogStackTrace(OSThread_t* thread, MPTR sp);
+
 bool crashLogCreated = false;
 
 bool CrashLog_Create()
@@ -95,7 +97,7 @@ void ExceptionHandler_LogGeneralInfo()
         MPTR currentStackVAddr = hCPU->gpr[1];
         CrashLog_WriteLine("");
         CrashLog_WriteHeader("PPC stack trace");
-        DebugLogStackTrace(currentThread, currentStackVAddr, true);
+        DebugLogStackTrace(currentThread, currentStackVAddr);
 
         // stack dump
         CrashLog_WriteLine("");

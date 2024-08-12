@@ -34,16 +34,12 @@ private:
 
 public:
 	// Set directories and return all directories that failed write access test
-	static void
-	SetPaths(bool isPortableMode,
-		   const fs::path& executablePath,
-		   const fs::path& userDataPath,
-		   const fs::path& configPath,
-		   const fs::path& cachePath,
-		   const fs::path& dataPath,
-		   std::set<fs::path>& failedWriteAccess);
-
-	static void Init();
+	static std::set<fs::path> 
+	LoadOnce(const fs::path& executablePath,
+			 const fs::path& userDataPath,
+			 const fs::path& configPath,
+			 const fs::path& cachePath,
+			 const fs::path& dataPath);
 
 	[[nodiscard]] static fs::path GetExecutablePath() { return s_executable_path; }
 	[[nodiscard]] static fs::path GetExecutableFilename() { return s_executable_filename; }
@@ -60,14 +56,11 @@ public:
 
 	template <typename ...TArgs>
 	[[nodiscard]] static fs::path GetMlcPath(TArgs&&... args){ return GetPath(GetMlcPath(), std::forward<TArgs>(args)...); };
-	static bool IsCustomMlcPath();
-	static bool IsCommandLineMlcPath();
 
 	// get mlc path to default cemu root dir/mlc01
 	[[nodiscard]] static fs::path GetDefaultMLCPath();
 
 private:
-	inline static bool s_isPortableMode{false};
 	inline static fs::path s_executable_path;
 	inline static fs::path s_user_data_path;
 	inline static fs::path s_config_path;
@@ -77,8 +70,6 @@ private:
 	inline static fs::path s_mlc_path;
 
 public:
-	// can be called before Init
-	[[nodiscard]] static bool IsPortableMode();
 	// general
 	[[nodiscard]] static bool LoadSharedLibrariesEnabled();
 	[[nodiscard]] static bool DisplayDRCEnabled();
@@ -120,7 +111,6 @@ public:
 	[[nodiscard]] static bool ForceSamplerRoundToPrecision();
 
 private:
-	inline static bool s_setPathsCalled = false;
 	// dump options
 	inline static bool s_dump_shaders = false;
 	inline static bool s_dump_textures = false;

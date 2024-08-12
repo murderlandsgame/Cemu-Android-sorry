@@ -2,6 +2,7 @@
 #include "Cafe/OS/RPL/rpl.h"
 #include "Cafe/OS/libs/gx2/GX2.h"
 #include "Cafe/OS/libs/coreinit/coreinit_Thread.h"
+#include "Cafe/HW/Latte/Core/LatteOverlay.h"
 #include "Cafe/GameProfile/GameProfile.h"
 #include "Cafe/GraphicPack/GraphicPack2.h"
 #include "config/CemuConfig.h"
@@ -156,13 +157,24 @@ void ExpressionParser_test();
 void FSTVolumeTest();
 void CRCTest();
 
-void UnitTests()
+void unitTests()
 {
 	ExpressionParser_test();
 	gx2CopySurfaceTest();
 	ppcAsmTest();
 	FSTVolumeTest();
 	CRCTest();
+}
+
+int mainEmulatorHLE()
+{
+	LatteOverlay_init();
+	// run a couple of tests if in non-release mode
+#ifdef CEMU_DEBUG_ASSERT
+	unitTests();
+#endif
+	CemuCommonInit();
+	return 0;
 }
 
 bool isConsoleConnected = false;
