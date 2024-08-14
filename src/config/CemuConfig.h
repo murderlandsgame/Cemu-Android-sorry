@@ -340,7 +340,7 @@ namespace DefaultColumnSize {
 		game_time = 140u,
 		game_started = 160u,
 		region = 80u,
-        title_id = 160u
+		title_id = 160u
 	};
 };
 
@@ -516,6 +516,7 @@ struct CemuConfig
 	struct
 	{
 		ConfigValue<bool> emulate_skylander_portal{false};
+		ConfigValue<bool> emulate_infinity_base{false};
 	}emulated_usb_devices{};
 
 	private:
