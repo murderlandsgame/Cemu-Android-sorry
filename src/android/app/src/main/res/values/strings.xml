@@ -151,4 +151,5 @@
     <string name="vram_usage_label">VRAM usage</string>
     <string name="vram_usage_description">The VRAM usage of Cemu in MB</string>
     <string name="debug_label">Debug</string>
+    <string name="debug_label_description">Debug Mode</string>
 </resources>

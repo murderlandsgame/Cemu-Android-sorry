@@ -80,6 +80,7 @@ public class OverlaySettingsFragment extends Fragment {
         
         CheckboxRecyclerViewItem debugCheckbox = new CheckboxRecyclerViewItem(
             getString(R.string.debug_label),
+            getString(R.string.debug_label_description),
             NativeLibrary.isOverlayDebugEnabled(),
             NativeLibrary::setOverlayDebugEnabled);
         genericRecyclerViewAdapter.addRecyclerViewItem(debugCheckbox);
