@@ -150,4 +150,5 @@
     <string name="ram_usage_description">Cemu RAM usage in MB</string>
     <string name="vram_usage_label">VRAM usage</string>
     <string name="vram_usage_description">The VRAM usage of Cemu in MB</string>
+    <string name="debug_label">Debug</string>
 </resources>

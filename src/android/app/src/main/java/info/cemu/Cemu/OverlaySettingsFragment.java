@@ -43,30 +43,46 @@ public class OverlaySettingsFragment extends Fragment {
                 });
         genericRecyclerViewAdapter.addRecyclerViewItem(tvChannelsModeSelection);
 
-        CheckboxRecyclerViewItem overlayFps = new CheckboxRecyclerViewItem(getString(R.string.fps_label),
-                getString(R.string.fps_description), NativeLibrary.isOverlayFPSEnabled(),
-                NativeLibrary::setOverlayFPSEnabled);
+        CheckboxRecyclerViewItem overlayFps = new CheckboxRecyclerViewItem(
+            getString(R.string.fps_label),
+            getString(R.string.fps_description),
+            NativeLibrary.isOverlayFPSEnabled(),
+            NativeLibrary::setOverlayFPSEnabled);
         genericRecyclerViewAdapter.addRecyclerViewItem(overlayFps);
 
-        CheckboxRecyclerViewItem drawCallsCheckbox = new CheckboxRecyclerViewItem(getString(R.string.draw_calls_per_frame_label),
-                getString(R.string.draw_calls_per_frame_label_desription), NativeLibrary.isOverlayDrawCallsPerFrameEnabled(),
-                NativeLibrary::setOverlayDrawCallsPerFrameEnabled);
+        CheckboxRecyclerViewItem drawCallsCheckbox = new CheckboxRecyclerViewItem(
+            getString(R.string.draw_calls_per_frame_label),
+            getString(R.string.draw_calls_per_frame_label_desription),
+            NativeLibrary.isOverlayDrawCallsPerFrameEnabled(),
+            NativeLibrary::setOverlayDrawCallsPerFrameEnabled);
         genericRecyclerViewAdapter.addRecyclerViewItem(drawCallsCheckbox);
 
-        CheckboxRecyclerViewItem cpuUsageCheckbox = new CheckboxRecyclerViewItem(getString(R.string.cpu_usage_label),
-                getString(R.string.cpu_usage_description), NativeLibrary.isOverlayCPUUsageEnabled(),
-                NativeLibrary::setOverlayCPUUsageEnabled);
+        CheckboxRecyclerViewItem cpuUsageCheckbox = new CheckboxRecyclerViewItem(
+            getString(R.string.cpu_usage_label),
+            getString(R.string.cpu_usage_description),
+            NativeLibrary.isOverlayCPUUsageEnabled(),
+            NativeLibrary::setOverlayCPUUsageEnabled);
         genericRecyclerViewAdapter.addRecyclerViewItem(cpuUsageCheckbox);
 
-        CheckboxRecyclerViewItem ramUsageCheckbox = new CheckboxRecyclerViewItem(getString(R.string.ram_usage_label),
-                getString(R.string.ram_usage_description), NativeLibrary.isOverlayRAMUsageEnabled(),
-                NativeLibrary::setOverlayRAMUsageEnabled);
+        CheckboxRecyclerViewItem ramUsageCheckbox = new CheckboxRecyclerViewItem(
+            getString(R.string.ram_usage_label),
+            getString(R.string.ram_usage_description),
+            NativeLibrary.isOverlayRAMUsageEnabled(),
+            NativeLibrary::setOverlayRAMUsageEnabled);
         genericRecyclerViewAdapter.addRecyclerViewItem(ramUsageCheckbox);
 
-        CheckboxRecyclerViewItem vramUsageCheckbox = new CheckboxRecyclerViewItem(getString(R.string.vram_usage_label),
-                getString(R.string.vram_usage_description), NativeLibrary.isOverlayVRAMUsageEnabled(),
-                NativeLibrary::setOverlayVRAMUsageEnabled);
+        CheckboxRecyclerViewItem vramUsageCheckbox = new CheckboxRecyclerViewItem(
+            getString(R.string.vram_usage_label),
+            getString(R.string.vram_usage_description),
+            NativeLibrary.isOverlayVRAMUsageEnabled(),
+            NativeLibrary::setOverlayVRAMUsageEnabled);
         genericRecyclerViewAdapter.addRecyclerViewItem(vramUsageCheckbox);
+        
+        CheckboxRecyclerViewItem debugCheckbox = new CheckboxRecyclerViewItem(
+            getString(R.string.debug_label),
+            NativeLibrary.isOverlayDebugEnabled(),
+            NativeLibrary::setOverlayDebugEnabled);
+        genericRecyclerViewAdapter.addRecyclerViewItem(debugCheckbox);
 
         binding.recyclerView.setAdapter(genericRecyclerViewAdapter);
 
