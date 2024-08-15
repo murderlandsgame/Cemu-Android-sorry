@@ -26,7 +26,7 @@ namespace coreinit
 	uint32 OSDriver_Register(uint32 moduleHandle, sint32 priority, OSDriverInterface* driverCallbacks, sint32 driverId, uint32be* outUkn1, uint32be* outUkn2, uint32be* outUkn3);
 	uint32 OSDriver_Deregister(uint32 moduleHandle, sint32 driverId);
 
-	um class COSReportModule
+	enum class COSReportModule
 	{
 		coreinit = 0,
 	};
