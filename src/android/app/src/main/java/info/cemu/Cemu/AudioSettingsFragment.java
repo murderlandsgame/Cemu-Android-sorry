@@ -22,8 +22,10 @@ public class AudioSettingsFragment extends Fragment {
 
         GenericRecyclerViewAdapter genericRecyclerViewAdapter = new GenericRecyclerViewAdapter();
 
-        CheckboxRecyclerViewItem tvDeviceCheckbox = new CheckboxRecyclerViewItem(getString(R.string.tv),
-                getString(R.string.tv_audio_description), NativeLibrary.getAudioDeviceEnabled(true),
+        CheckboxRecyclerViewItem tvDeviceCheckbox = new CheckboxRecyclerViewItem(
+                getString(R.string.tv),
+                getString(R.string.tv_audio_description),
+                NativeLibrary.getAudioDeviceEnabled(true),
                 checked -> NativeLibrary.setAudioDeviceEnabled(checked, true));
         genericRecyclerViewAdapter.addRecyclerViewItem(tvDeviceCheckbox);
 
@@ -32,7 +34,8 @@ public class AudioSettingsFragment extends Fragment {
                 .collect(Collectors.toList());
         int tvChannels = NativeLibrary.getAudioDeviceChannels(true);
         SelectionAdapter<Integer> tvChannelsSelectionAdapter = new SelectionAdapter<>(tvChannelsChoices, tvChannels);
-        SingleSelectionRecyclerViewItem<Integer> tvChannelsModeSelection = new SingleSelectionRecyclerViewItem<>(getString(R.string.tv_channels),
+        SingleSelectionRecyclerViewItem<Integer> tvChannelsModeSelection = new SingleSelectionRecyclerViewItem<>(
+                getString(R.string.tv_channels),
                 getString(NativeLibrary.channelsToResourceNameId(tvChannels)), tvChannelsSelectionAdapter,
                 (channels, selectionRecyclerViewItem) -> {
                     NativeLibrary.setAudioDeviceChannels(channels, true);
@@ -48,15 +51,18 @@ public class AudioSettingsFragment extends Fragment {
                 value -> (int) value + "%");
         genericRecyclerViewAdapter.addRecyclerViewItem(tvVolumeSlider);
 
-        CheckboxRecyclerViewItem padDeviceCheckbox = new CheckboxRecyclerViewItem(getString(R.string.gamepad),
-                getString(R.string.gamepad_audio_description), NativeLibrary.getAudioDeviceEnabled(true),
+        CheckboxRecyclerViewItem padDeviceCheckbox = new CheckboxRecyclerViewItem(
+                getString(R.string.gamepad),
+                getString(R.string.gamepad_audio_description), 
+                NativeLibrary.getAudioDeviceEnabled(true),
                 checked -> NativeLibrary.setAudioDeviceEnabled(checked, true));
         genericRecyclerViewAdapter.addRecyclerViewItem(padDeviceCheckbox);
 
         var gamepadChannelsChoices = List.of(new SelectionAdapter.ChoiceItem<>(t -> t.setText(NativeLibrary.channelsToResourceNameId(NativeLibrary.AUDIO_CHANNELS_STEREO)), NativeLibrary.AUDIO_CHANNELS_STEREO));
         int gamepadChannels = NativeLibrary.getAudioDeviceChannels(false);
         SelectionAdapter<Integer> gamepadChannelsSelectionAdapter = new SelectionAdapter<>(gamepadChannelsChoices, gamepadChannels);
-        SingleSelectionRecyclerViewItem<Integer> gamepadChannelsModeSelection = new SingleSelectionRecyclerViewItem<>(getString(R.string.gamepad_channels),
+        SingleSelectionRecyclerViewItem<Integer> gamepadChannelsModeSelection = new SingleSelectionRecyclerViewItem<>(
+                getString(R.string.gamepad_channels),
                 getString(NativeLibrary.channelsToResourceNameId(gamepadChannels)), gamepadChannelsSelectionAdapter,
                 (channels, selectionRecyclerViewItem) -> {
                     NativeLibrary.setAudioDeviceChannels(channels, false);

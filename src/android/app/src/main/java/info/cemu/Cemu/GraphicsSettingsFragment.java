@@ -21,7 +21,11 @@ public class GraphicsSettingsFragment extends Fragment {
 
         GenericRecyclerViewAdapter genericRecyclerViewAdapter = new GenericRecyclerViewAdapter();
 
-        CheckboxRecyclerViewItem asyncShaderCheckbox = new CheckboxRecyclerViewItem(getString(R.string.async_shader_compile), getString(R.string.async_shader_compile_description), NativeLibrary.getAsyncShaderCompile(), NativeLibrary::setAsyncShaderCompile);
+        CheckboxRecyclerViewItem asyncShaderCheckbox = new CheckboxRecyclerViewItem(
+            getString(R.string.async_shader_compile),
+            getString(R.string.async_shader_compile_description),
+            NativeLibrary.getAsyncShaderCompile(),
+            NativeLibrary::setAsyncShaderCompile);
         genericRecyclerViewAdapter.addRecyclerViewItem(asyncShaderCheckbox);
 
         int vsyncMode = NativeLibrary.getVSyncMode();
@@ -29,15 +33,20 @@ public class GraphicsSettingsFragment extends Fragment {
                 .map(vsync -> new SelectionAdapter.ChoiceItem<>(t -> t.setText(NativeLibrary.vsyncModeToResourceNameId(vsync)), vsync))
                 .collect(Collectors.toList());
         SelectionAdapter<Integer> vsyncSelectionAdapter = new SelectionAdapter<>(vsyncChoices, vsyncMode);
-        SingleSelectionRecyclerViewItem<Integer> vsyncModeSelection = new SingleSelectionRecyclerViewItem<>(getString(R.string.vsync),
-                getString(NativeLibrary.vsyncModeToResourceNameId(vsyncMode)), vsyncSelectionAdapter,
+        SingleSelectionRecyclerViewItem<Integer> vsyncModeSelection = new SingleSelectionRecyclerViewItem<>(
+            getString(R.string.vsync),
+            getString(NativeLibrary.vsyncModeToResourceNameId(vsyncMode)), vsyncSelectionAdapter,
                 (vsync, selectionRecyclerViewItem) -> {
                     NativeLibrary.setVSyncMode(vsync);
                     selectionRecyclerViewItem.setDescription(getString(NativeLibrary.vsyncModeToResourceNameId(vsync)));
                 });
         genericRecyclerViewAdapter.addRecyclerViewItem(vsyncModeSelection);
 
-        CheckboxRecyclerViewItem accurateBarriersCheckbox = new CheckboxRecyclerViewItem(getString(R.string.accurate_barriers), getString(R.string.accurate_barriers_description), NativeLibrary.getAccurateBarriers(), NativeLibrary::setAccurateBarriers);
+        CheckboxRecyclerViewItem accurateBarriersCheckbox = new CheckboxRecyclerViewItem(
+            getString(R.string.accurate_barriers),
+            getString(R.string.accurate_barriers_description),
+            NativeLibrary.getAccurateBarriers(),
+            NativeLibrary::setAccurateBarriers);
         genericRecyclerViewAdapter.addRecyclerViewItem(accurateBarriersCheckbox);
 
         binding.recyclerView.setAdapter(genericRecyclerViewAdapter);
