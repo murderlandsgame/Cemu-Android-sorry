@@ -237,7 +237,7 @@ public class NativeLibrary {
     static final int API_OPENGL = 0;
     static final int API_VULKAN = 1;
 
-    public static int apiModeToResourceNameId(int vsyncMode) {
+    public static int apiModeToResourceNameId(int apiMode) {
         return switch (apiMode) {
             case API_OPENGL -> R.string.api_opengl;
             case API_VULKAN -> R.string.api_vulkan;
