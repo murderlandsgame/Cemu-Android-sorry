@@ -29,7 +29,7 @@ public class GraphicsSettingsFragment extends Fragment {
         SingleSelectionRecyclerViewItem<Integer> apiModeSelection = new SingleSelectionRecyclerViewItem<>(
             getString(R.string.render_api),
             getString(NativeLibrary.apiModeToResourceNameId(apiMode)),
-            vsyncSelectionAdapter, (api, selectionRecyclerViewItem) -> {
+            apiSelectionAdapter, (api, selectionRecyclerViewItem) -> {
                     NativeLibrary.setApiMode(api);
                     selectionRecyclerViewItem.setDescription(getString(NativeLibrary.apiModeToResourceNameId(api)));
                 });
