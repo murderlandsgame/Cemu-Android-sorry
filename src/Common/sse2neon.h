@@ -144,40 +144,40 @@
 #endif
 
 #if (defined(_M_AMD64) || defined(__x86_64__)) || \
-    (defined(_M_ARM64) || defined(__arm64__))
+	(defined(_M_ARM64) || defined(__arm64__))
 #define SSE2NEON_HAS_BITSCAN64
 #endif
 #endif
 
 #if defined(__GNUC__) || defined(__clang__)
 #define _sse2neon_define0(type, s, body) \
-    __extension__({                      \
-        type _a = (s);                   \
-        body                             \
-    })
+	__extension__({                      \
+		type _a = (s);                   \
+		body                             \
+	})
 #define _sse2neon_define1(type, s, body) \
-    __extension__({                      \
-        type _a = (s);                   \
-        body                             \
-    })
+	__extension__({                      \
+		type _a = (s);                   \
+		body                             \
+	})
 #define _sse2neon_define2(type, a, b, body) \
-    __extension__({                         \
-        type _a = (a), _b = (b);            \
-        body                                \
-    })
+	__extension__({                         \
+		type _a = (a), _b = (b);            \
+		body                                \
+	})
 #define _sse2neon_return(ret) (ret)
 #else
 #define _sse2neon_define0(type, a, body) [=](type _a) { body }(a)
 #define _sse2neon_define1(type, a, body) [](type _a) { body }(a)
 #define _sse2neon_define2(type, a, b, body) \
-    [](type _a, type _b) { body }((a), (b))
+	[](type _a, type _b) { body }((a), (b))
 #define _sse2neon_return(ret) return ret
 #endif
 
 #define _sse2neon_init(...) \
-    {                       \
-        __VA_ARGS__         \
-    }
+	{                       \
+		__VA_ARGS__         \
+	}
 
 /* Compiler barrier */
 #if defined(_MSC_VER)
@@ -201,14 +201,14 @@
 
 FORCE_INLINE void _sse2neon_smp_mb(void)
 {
-    SSE2NEON_BARRIER();
+	SSE2NEON_BARRIER();
 #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L) && \
-    !defined(__STDC_NO_ATOMICS__)
-    atomic_thread_fence(memory_order_seq_cst);
+	!defined(__STDC_NO_ATOMICS__)
+	atomic_thread_fence(memory_order_seq_cst);
 #elif defined(__GNUC__) || defined(__clang__)
-    __atomic_thread_fence(__ATOMIC_SEQ_CST);
+	__atomic_thread_fence(__ATOMIC_SEQ_CST);
 #else /* MSVC */
-    __dmb(_ARM64_BARRIER_ISH);
+	__dmb(_ARM64_BARRIER_ISH);
 #endif
 }
 
@@ -235,7 +235,7 @@ FORCE_INLINE void _sse2neon_smp_mb(void)
 #elif __ARM_ARCH == 8
 #if !defined(__ARM_NEON) || !defined(__ARM_NEON__)
 #error \
-    "You must enable NEON instructions (e.g. -mfpu=neon-fp-armv8) to use SSE2NEON."
+	"You must enable NEON instructions (e.g. -mfpu=neon-fp-armv8) to use SSE2NEON."
 #endif
 #if !defined(__clang__) && !defined(_MSC_VER)
 #pragma GCC push_options
@@ -310,14 +310,14 @@ FORCE_INLINE void _sse2neon_smp_mb(void)
  * fp0 is the same for fp0 of result.
  */
 #define _MM_SHUFFLE(fp3, fp2, fp1, fp0) \
-    (((fp3) << 6) | ((fp2) << 4) | ((fp1) << 2) | ((fp0)))
+	(((fp3) << 6) | ((fp2) << 4) | ((fp1) << 2) | ((fp0)))
 
 #if __has_builtin(__builtin_shufflevector)
 #define _sse2neon_shuffle(type, a, b, ...) \
-    __builtin_shufflevector(a, b, __VA_ARGS__)
+	__builtin_shufflevector(a, b, __VA_ARGS__)
 #elif __has_builtin(__builtin_shuffle)
 #define _sse2neon_shuffle(type, a, b, ...) \
-    __extension__({                        \
+	__extension__({                        \
         type tmp = {__VA_ARGS__};          \
         __builtin_shuffle(a, b, tmp);      \
     })

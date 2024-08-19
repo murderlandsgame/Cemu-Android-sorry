@@ -234,6 +234,21 @@ public class NativeLibrary {
 
     public static native void onAxisEvent(String deviceDescriptor, String deviceName, int axisCode, float value);
 
+    static final int API_OPENGL = 0;
+    static final int API_VULKAN = 1;
+
+    public static int apiModeToResourceNameId(int vsyncMode) {
+        return switch (apiMode) {
+            case API_OPENGL -> R.string.api_opengl;
+            case API_VULKAN -> R.string.api_vulkan;
+            default -> throw new RuntimeException("Invalid api mode: " + apiMode);
+        };
+    }
+
+    public static native void setApiMode(int apiMode);
+
+    public static native int getApiMode();
+
     public static native boolean getAsyncShaderCompile();
 
     public static native void setAsyncShaderCompile(boolean enabled);
@@ -254,6 +269,29 @@ public class NativeLibrary {
     public static native int getVSyncMode();
 
     public static native void setVSyncMode(int vsyncMode);
+/* implement later
+    static final int SCALE_FILTER_BILINEAR = 0;
+    static final int SCALE_FILTER_BICUBIC = 1;
+    static final int SCALE_FILTER_HERMITE = 2;
+    static final int SCALE_FILTER_NEAREST = 3;
+
+    public static int scaleFilterToResourceNameId(int scale) {
+        return switch (scales) {
+            case SCALE_FILTER_BILINEAR -> R.string.bilinear;
+            case SCALE_FILTER_BICUBIC -> R.string.bicubic;
+            case SCALE_FILTER_HERMITE -> R.string.hermite;
+            case SCALE_FILTER_NEAREST -> R.string.nearest;
+            default -> throw new RuntimeException("Invalid scale type: " + scales);
+        };
+    }
+*/
+    public static native void setUpscaleFilter(int scales);
+
+    public static native int getUpscaleFilter();
+
+    public static native void setDownscaleFilter(int scales);
+
+    public static native int getDownscaleFilter();
 
     public static native boolean getAccurateBarriers();
 

@@ -21,6 +21,20 @@ public class GraphicsSettingsFragment extends Fragment {
 
         GenericRecyclerViewAdapter genericRecyclerViewAdapter = new GenericRecyclerViewAdapter();
 
+        int apiMode = NativeLibrary.getApiMode();
+        var apiChoices = Stream.of(NativeLibrary.API_OPENGL, NativeLibrary.API_VULKAN)
+               .map(api -> new SelectionAdapter.ChoiceItem<>(t -> t.setText(NativeLibrary.apiModeToResourceNameId(api)), api))
+               .collect(Collectors.toList());
+        SelectionAdapter<Integer> apiSelectionAdapter = new SelectionAdapter<>(apiChoices, apiMode);
+        SingleSelectionRecyclerViewItem<Integer> apiModeSelection = new SingleSelectionRecyclerViewItem<>(
+            getString(R.string.render_api),
+            getString(NativeLibrary.apiModeToResourceNameId(apiMode)),
+            vsyncSelectionAdapter, (api, selectionRecyclerViewItem) -> {
+                    NativeLibrary.setApiMode(api);
+                    selectionRecyclerViewItem.setDescription(getString(NativeLibrary.apiModeToResourceNameId(api)));
+                });
+        genericRecyclerViewAdapter.addRecyclerViewItem(apiModeSelection);
+
         CheckboxRecyclerViewItem asyncShaderCheckbox = new CheckboxRecyclerViewItem(
             getString(R.string.async_shader_compile),
             getString(R.string.async_shader_compile_description),
@@ -35,8 +49,8 @@ public class GraphicsSettingsFragment extends Fragment {
         SelectionAdapter<Integer> vsyncSelectionAdapter = new SelectionAdapter<>(vsyncChoices, vsyncMode);
         SingleSelectionRecyclerViewItem<Integer> vsyncModeSelection = new SingleSelectionRecyclerViewItem<>(
             getString(R.string.vsync),
-            getString(NativeLibrary.vsyncModeToResourceNameId(vsyncMode)), vsyncSelectionAdapter,
-                (vsync, selectionRecyclerViewItem) -> {
+            getString(NativeLibrary.vsyncModeToResourceNameId(vsyncMode)),
+            vsyncSelectionAdapter, (vsync, selectionRecyclerViewItem) -> {
                     NativeLibrary.setVSyncMode(vsync);
                     selectionRecyclerViewItem.setDescription(getString(NativeLibrary.vsyncModeToResourceNameId(vsync)));
                 });

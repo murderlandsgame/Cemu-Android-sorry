@@ -109,11 +109,11 @@ public:
 	int char2int(char input)
 	{
 	  if(input >= '0' && input <= '9')
-	    return input - '0';
+		return input - '0';
 	  if(input >= 'A' && input <= 'F')
-	    return input - 'A' + 10;
+		return input - 'A' + 10;
 	  if(input >= 'a' && input <= 'f')
-	    return input - 'a' + 10;
+		return input - 'a' + 10;
 	  throw std::invalid_argument("Invalid input string");
 	}
 
@@ -122,8 +122,8 @@ public:
 	{
 		arr = {};
 		const auto element = m_current_element
-			                     ? m_current_element->FirstChildElement(name)
-			                     : m_document->FirstChildElement(name);
+								? m_current_element->FirstChildElement(name)
+								: m_document->FirstChildElement(name);
 		if (element == nullptr)
 			return arr;
 
@@ -251,8 +251,8 @@ public:
 	XMLConfigParser get(const char* name) const
 	{
 		const auto element = m_current_element
-			                     ? m_current_element->FirstChildElement(name)
-			                     : m_document->FirstChildElement(name);
+								? m_current_element->FirstChildElement(name)
+								: m_document->FirstChildElement(name);
 		return {m_document, element};
 	}
 
@@ -402,15 +402,15 @@ public:
 
 		FILE* file = nullptr;
 #if BOOST_OS_WINDOWS
-        file = _wfopen(tmp_name.c_str(), L"wb");
+		file = _wfopen(tmp_name.c_str(), L"wb");
 #else
 		file = fopen(boost::nowide::narrow(tmp_name).c_str(), "wb");
 #endif
-        if (!file)
-        {
+		if (!file)
+		{
 			cemuLog_logDebug(LogType::Force, "XMLConfig::Save > failed \"{}\" with error {}", boost::nowide::narrow(filename), errno);
-            return false;
-        }
+			return false;
+		}
 
 		tinyxml2::XMLDocument doc;
 		const auto declaration = doc.NewDeclaration();
