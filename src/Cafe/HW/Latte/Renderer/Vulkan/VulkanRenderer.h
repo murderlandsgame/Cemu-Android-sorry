@@ -334,7 +334,7 @@ public:
 	RendererShader* shader_create(RendererShader::ShaderType type, uint64 baseHash, uint64 auxHash, const std::string& source, bool isGameShader, bool isGfxPackShader) override;
 
 	void* indexData_reserveIndexMemory(uint32 size, uint32& offset, uint32& bufferIndex) override;
-	void indexData_uploadIndexMemory(uint32 offset, uint32 size) override;
+	void indexData_uploadIndexMemory(uint32 bufferIndex, uint32 offset, uint32 size) override;
 
 	// externally callable
 	void GetTextureFormatInfoVK(Latte::E_GX2SURFFMT format, bool isDepth, Latte::E_DIM dim, sint32 width, sint32 height, FormatInfoVK* formatInfoOut);
@@ -516,6 +516,7 @@ private:
 	void DeleteTexture(ImTextureID id) override;
 	void DeleteFontTextures() override;
 	bool BeginFrame(bool mainWindow) override;
+	bool UseTFViaSSBO() const override { return m_featureControl.mode.useTFEmulationViaSSBO; }
 
 	// drawcall emulation
 	PipelineInfo* draw_createGraphicsPipeline(uint32 indexCount);
@@ -926,7 +927,6 @@ private:
 
 public:
 	bool GetDisableMultithreadedCompilation() const { return m_featureControl.disableMultithreadedCompilation; }
-	bool UseTFViaSSBO() const { return m_featureControl.mode.useTFEmulationViaSSBO; }
 	bool HasSPRIVRoundingModeRTE32() const { return m_featureControl.shaderFloatControls.shaderRoundingModeRTEFloat32; }
 	bool IsDebugUtilsEnabled() const { return m_featureControl.debugMarkersSupported && m_featureControl.instanceExtensions.debug_utils; }
 

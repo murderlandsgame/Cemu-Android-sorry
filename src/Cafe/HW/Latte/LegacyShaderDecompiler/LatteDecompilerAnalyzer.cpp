@@ -393,7 +393,7 @@ void LatteDecompiler_analyzeExport(LatteDecompilerShaderContext* shaderContext, 
 		}
 		else if( cfInstruction->exportType == 0 && cfInstruction->exportArrayBase == 61 )
 		{
-			// writes pixel depth
+			shader->depthWritten = true;
 		}
 		else
 			debugBreakpoint();
