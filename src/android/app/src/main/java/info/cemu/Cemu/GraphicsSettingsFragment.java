@@ -21,6 +21,20 @@ public class GraphicsSettingsFragment extends Fragment {
 
         GenericRecyclerViewAdapter genericRecyclerViewAdapter = new GenericRecyclerViewAdapter();
 
+        var apiChoices = Stream.of(NativeLibrary.API_OPENGL, NativeLibrary.API_VULKAN)
+                .map(apiMode -> new SelectionAdapter.ChoiceItem<>(t -> t.setText(NativeLibrary.apiModeToResourceNameId(apiMode)), apiMode))
+                .collect(Collectors.toList());
+        int api = NativeLibrary.getApiMode();
+        SelectionAdapter<Integer> apiModeSelectionAdapter = new SelectionAdapter<>(apiChoices, api);
+        SingleSelectionRecyclerViewItem<Integer> apiModeSelection = new SingleSelectionRecyclerViewItem<>(
+                getString(R.string.render_api),
+                getString(NativeLibrary.apiModeToResourceNameId(api)), apiModeSelectionAdapter,
+                (apiMode, selectionRecyclerViewItem) -> {
+                    NativeLibrary.setApiMode(apiMode);
+                    selectionRecyclerViewItem.setDescription(getString(NativeLibrary.apiModeToResourceNameId(apiMode)));
+                });
+        genericRecyclerViewAdapter.addRecyclerViewItem(apiModeSelection);
+
         CheckboxRecyclerViewItem asyncShaderCheckbox = new CheckboxRecyclerViewItem(
             getString(R.string.async_shader_compile),
             getString(R.string.async_shader_compile_description),

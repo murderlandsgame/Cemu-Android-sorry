@@ -69,9 +69,8 @@ public class EmulationActivity extends AppCompatActivity {
         builder.setTitle(R.string.exit_confirmation_title)
                .setMessage(R.string.exit_confirm_message)
                .setPositiveButton(R.string.yes, (dialog, which) -> {
-                   //finishAffinity();
-                   //System.exit(0);
-                   finish();
+                   finishAffinity();
+                   System.exit(0);
                }).setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel())
                .create()
                .show();
