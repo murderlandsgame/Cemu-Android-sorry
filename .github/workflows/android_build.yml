@@ -32,9 +32,9 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
           cd ./src/android
-          base64 --decode <<< "${ANDROID_STORE_FILE_BASE64}" > store.jks
-          ANDROID_STORE_FILE=$(pwd)/store.jks
-          echo -e "keyStorePassword=$ANDROID_KEY_STORE_PASSWORD\nkeyAlias=$ANDROID_KEY_ALIAS\nstoreFile=$ANDROID_STORE_FILE\n" > keystore.properties
+          #base64 --decode <<< "${ANDROID_STORE_FILE_BASE64}" > store.jks
+          #ANDROID_STORE_FILE=$(pwd)/store.jks
+          #echo -e "keyStorePassword=$ANDROID_KEY_STORE_PASSWORD\nkeyAlias=$ANDROID_KEY_ALIAS\nstoreFile=$ANDROID_STORE_FILE\n" > keystore.properties
           ./gradlew assembleRelease
 
       - name: Upload artifact
