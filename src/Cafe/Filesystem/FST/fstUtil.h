@@ -121,7 +121,7 @@ public:
 template<typename F>
 class FSAFileTree
 {
-	private:
+  private:
 
 	enum NODETYPE : uint8
 	{

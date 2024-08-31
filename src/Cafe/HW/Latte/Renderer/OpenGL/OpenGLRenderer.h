@@ -109,7 +109,7 @@ public:
 		return nullptr;
 	}
 
-	void indexData_uploadIndexMemory(uint32 bufferIndex, uint32 offset, uint32 size) override
+	void indexData_uploadIndexMemory(uint32 offset, uint32 size) override
 	{
 		assert_dbg();
 	}

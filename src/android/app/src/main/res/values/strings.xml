@@ -70,9 +70,6 @@
     <string name="games_folder_label">Set games folder</string>
     <string name="options">Options</string>
     <string name="emulated_controller_selection_description">Selected controller: %1s</string>
-    <string name="render_api">API</string>
-    <string name="api_opengl">OpenGL</string>
-    <string name="api_vulkan">Vulkan</string>
     <string name="async_shader_compile">Async shader compile</string>
     <string name="async_shader_compile_description">Enables async shader and pipeline compilation. Reduces stutter at the cost of objects not rendering for a short time</string>
     <string name="graphics_settings">Graphics settings</string>
@@ -119,9 +116,6 @@
     <string name="input_mode_edit_position">Edit input positions</string>
     <string name="input_mode_default">Exited input edit mode</string>
     <string name="input_mode_button_description">Change input mode to move/resize or default</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="inputoverlaysettings_shared_preferences_name">info.cemu.Cemu.InputOverlaySettings</string>
     <string name="overlay_controller">Overlay controller</string>
     <string name="input_overlay">Input overlay</string>
     <string name="input_overlay_settings">Input overlay settings</string>
@@ -153,6 +147,4 @@
     <string name="ram_usage_description">Cemu RAM usage in MB</string>
     <string name="vram_usage_label">VRAM usage</string>
     <string name="vram_usage_description">The VRAM usage of Cemu in MB</string>
-    <string name="debug_label">Debug</string>
-    <string name="debug_label_description">Debug Mode</string>
 </resources>

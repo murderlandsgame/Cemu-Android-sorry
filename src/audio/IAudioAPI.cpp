@@ -124,11 +124,11 @@ AudioAPIPtr IAudioAPI::CreateDevice(AudioAPI api, const DeviceDescriptionPtr& de
 	}
 #endif
 #if HAS_CUBEB
-	case Cubeb:
-	{
-		const auto tmp = std::dynamic_pointer_cast<CubebAPI::CubebDeviceDescription>(device);
-		return std::make_unique<CubebAPI>(tmp->GetDeviceId(), samplerate, channels, samples_per_block, bits_per_sample);
-	}
+    case Cubeb:
+    {
+        const auto tmp = std::dynamic_pointer_cast<CubebAPI::CubebDeviceDescription>(device);
+        return std::make_unique<CubebAPI>(tmp->GetDeviceId(), samplerate, channels, samples_per_block, bits_per_sample);
+    }
 #endif
 	default:
 		throw std::runtime_error(fmt::format("invalid audio api: {}", api));

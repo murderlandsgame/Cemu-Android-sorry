@@ -54,13 +54,13 @@ void SymbolListCtrl::OnGameLoaded()
 		wxString libNameWX = wxString::FromAscii((const char*)symbol_info->libName);
 		wxString symbolNameWX = wxString::FromAscii((const char*)symbol_info->symbolName);
 		wxString searchNameWX = libNameWX + symbolNameWX;
-		searchNameWX.MakeLower(); 
+		searchNameWX.MakeLower();
 
 		auto new_entry = m_data.try_emplace(
 			symbol_info->address,
-			symbolNameWX,
+            symbolNameWX,
 			libNameWX,
-			searchNameWX,
+            searchNameWX,
 			false
 		);
 

@@ -32,10 +32,11 @@ class fscDeviceTypeRedirect : public fscDeviceC
 	FSCVirtualFile* fscDeviceOpenByPath(std::string_view path, FSC_ACCESS_FLAG accessFlags, void* ctx, sint32* fscStatus) override
 	{
 		RedirectEntry* redirectionEntry;
+
 		if (HAS_FLAG(accessFlags, FSC_ACCESS_FLAG::OPEN_FILE) && redirectTree.getFile(path, redirectionEntry))
 			return FSCVirtualFile_Host::OpenFile(redirectionEntry->dstPath, accessFlags, *fscStatus);
 
-			FSCVirtualFile* dirIterator;
+		FSCVirtualFile* dirIterator;
 
 		if (HAS_FLAG(accessFlags, FSC_ACCESS_FLAG::OPEN_DIR) && redirectTree.getDirectory(path, dirIterator))
 			return dirIterator;

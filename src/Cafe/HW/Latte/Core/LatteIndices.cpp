@@ -284,46 +284,6 @@ void LatteIndices_generateAutoLineLoopIndices(void* indexDataOutput, uint32 coun
 	indexMax = std::max(count, 1u) - 1;
 }
 
-template<typename T>
-void LatteIndices_unpackTriangleFanAndConvert(const void* indexDataInput, void* indexDataOutput, uint32 count, uint32& indexMin, uint32& indexMax)
-{
-    debug_printf("TRIANGLE FAN UNPACK %u\n", rand());
-	const betype<T>* src = (betype<T>*)indexDataInput;
-	T* dst = (T*)indexDataOutput;
-	// TODO: check this
-	for (sint32 i = 0; i < count; i++)
-	{
-		uint32 i0;
-		if (i % 2 == 0)
-		    i0 = i / 2;
-        else
-            i0 = count - 1 - i / 2;
-        T idx = src[i0];
-		indexMin = std::min(indexMin, (uint32)idx);
-		indexMax = std::max(indexMax, (uint32)idx);
-		dst[i] = idx;
-	}
-}
-
-template<typename T>
-void LatteIndices_generateAutoTriangleFanIndices(const void* indexDataInput, void* indexDataOutput, uint32 count, uint32& indexMin, uint32& indexMax)
-{
-    debug_printf("TRIANGLE FAN AUTO %u\n", rand());
-	const betype<T>* src = (betype<T>*)indexDataInput;
-	T* dst = (T*)indexDataOutput;
-	for (sint32 i = 0; i < count; i++)
-	{
-		T idx = i;
-		if (idx % 2 == 0)
-            idx = idx / 2;
-        else
-            idx = count - 1 - idx / 2;
-		dst[i] = idx;
-	}
-	indexMin = 0;
-	indexMax = std::max(count, 1u) - 1;
-}
-
 #if defined(ARCH_X86_64)
 ATTRIBUTE_AVX2
 void LatteIndices_fastConvertU16_AVX2(const void* indexDataInput, void* indexDataOutput, uint32 count, uint32& indexMin, uint32& indexMax)
@@ -744,7 +704,7 @@ void LatteIndices_decode(const void* indexData, LatteIndexType indexType, uint32
 		// recalculate index range but filter out primitive restart index
 		LatteIndices_alternativeCalculateIndexMinMax(indexData, indexType, count, indexMin, indexMax);
 	}
-	g_renderer->indexData_uploadIndexMemory(indexBufferIndex, indexBufferOffset, indexOutputSize);
+	g_renderer->indexData_uploadIndexMemory(indexBufferOffset, indexOutputSize);
 	// update cache
 	LatteIndexCache.lastPtr = indexData;
 	LatteIndexCache.lastCount = count;

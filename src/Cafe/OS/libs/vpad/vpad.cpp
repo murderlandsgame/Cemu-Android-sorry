@@ -251,7 +251,6 @@ namespace vpad
 			}
 			if (error)
 				*error = VPAD_READ_ERR_NONE;
-
 			return 1;
 		}
 
@@ -274,7 +273,6 @@ namespace vpad
 					// not ready yet
 					if (error)
 						*error = VPAD_READ_ERR_NONE;
-
 					return 0;
 				}
 				else if (dif <= ESPRESSO_TIMER_CLOCK)

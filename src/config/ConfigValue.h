@@ -103,7 +103,7 @@ public:
 		m_value = v;
 	}
 
-	template <typename = typename std::enable_if<std::is_same_v<TType, std::wstring>>>
+    template <typename = typename std::enable_if<std::is_same_v<TType, std::wstring>>>
 	void SetValue(std::wstring_view v)
 	{
 		std::lock_guard lock(m_mutex);
@@ -178,14 +178,14 @@ public:
 		assert(m_min_value <= this->GetInitValue() && this->GetInitValue() <= m_max_value);
 	}
 
-	template<typename TEnum = typename std::enable_if<std::is_enum<TType>::value && EnableEnumIterators<TType>::enable, TType>>
+    template<typename TEnum = typename std::enable_if<std::is_enum<TType>::value && EnableEnumIterators<TType>::enable, TType>>
 	constexpr ConfigValueBounds(const TType& init_value)
 		: base_type(std::forward<TType>(init_value)), m_min_value(begin(init_value)), m_max_value(rbegin(init_value))
 	{
 		assert(m_min_value <= init_value && init_value <= m_max_value);
 	}
 
-	template<typename TEnum = typename std::enable_if<std::is_enum<TType>::value && EnableEnumIterators<TType>::enable, TType>>
+    template<typename TEnum = typename std::enable_if<std::is_enum<TType>::value && EnableEnumIterators<TType>::enable, TType>>
 	constexpr ConfigValueBounds(TType&& init_value)
 		: base_type(std::forward<TType>(init_value)), m_min_value(begin(init_value)), m_max_value(rbegin(init_value))
 	{

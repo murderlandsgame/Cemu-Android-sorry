@@ -9,7 +9,6 @@
 #include "Cafe/HW/Latte/Renderer/Vulkan/VulkanRenderer.h"
 #include "Cafe/OS/libs/gx2/GX2.h" // todo - remove dependency
 #include "Cafe/GraphicPack/GraphicPack2.h"
-#include "HW/Latte/Renderer/Renderer.h"
 #include "util/helpers/StringParser.h"
 #include "config/ActiveSettings.h"
 #include "Cafe/GameProfile/GameProfile.h"
@@ -525,7 +524,7 @@ void LatteSHRC_UpdateGSBaseHash(uint8* geometryShaderPtr, uint32 geometryShaderS
 	// update hash from geometry shader data
 	uint64 gsHash1 = 0;
 	uint64 gsHash2 = 0;
-	_calculateShaderProgramHash((uint32*)geometryShaderPtr, geometryShaderSize, &hashCacheVS, &gsHash1, &gsHash2);
+	_calculateShaderProgramHash((uint32*)geometryShaderPtr, geometryShaderSize, &hashCacheGS, &gsHash1, &gsHash2);
 	// get geometry shader
 	uint64 gsHash = gsHash1 + gsHash2;
 	gsHash += (uint64)_activeVertexShader->ringParameterCount;
@@ -616,7 +615,7 @@ LatteDecompilerShader* LatteShader_CreateShaderFromDecompilerOutput(LatteDecompi
 	LatteDecompilerShader* shader = decompilerOutput.shader;
 	shader->baseHash = baseHash;
 	// copy resource mapping
-	if(g_renderer->GetType() != RendererAPI::OpenGL)
+	if(g_renderer->GetType() == RendererAPI::Vulkan)
 		shader->resourceMapping = decompilerOutput.resourceMappingVK;
 	else
 		shader->resourceMapping = decompilerOutput.resourceMappingGL;
@@ -627,7 +626,7 @@ LatteDecompilerShader* LatteShader_CreateShaderFromDecompilerOutput(LatteDecompi
 	shader->hasStreamoutBufferWrite = decompilerOutput.streamoutBufferWriteMask.any();
 	// copy uniform offsets
 	// for OpenGL these are retrieved in _prepareSeparableUniforms()
-	if (g_renderer->GetType() != RendererAPI::OpenGL)
+	if (g_renderer->GetType() == RendererAPI::Vulkan)
 	{
 		shader->uniform.loc_remapped = decompilerOutput.uniformOffsetsVK.offset_remapped;
 		shader->uniform.loc_uniformRegister = decompilerOutput.uniformOffsetsVK.offset_uniformRegister;
@@ -687,9 +686,9 @@ void LatteShader_GetDecompilerOptions(LatteDecompilerOptions& options, LatteCons
 {
 	options.usesGeometryShader = geometryShaderEnabled;
 	options.spirvInstrinsics.hasRoundingModeRTEFloat32 = false;
-	options.useTFViaSSBO = g_renderer->UseTFViaSSBO();
 	if (g_renderer->GetType() == RendererAPI::Vulkan)
 	{
+		options.useTFViaSSBO = VulkanRenderer::GetInstance()->UseTFViaSSBO();
 		options.spirvInstrinsics.hasRoundingModeRTEFloat32 = VulkanRenderer::GetInstance()->HasSPRIVRoundingModeRTE32();
 	}
 	options.strictMul = g_current_game_profile->GetAccurateShaderMul() != AccurateShaderMulOption::False;

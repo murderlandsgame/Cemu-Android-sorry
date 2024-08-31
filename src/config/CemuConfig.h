@@ -340,7 +340,7 @@ namespace DefaultColumnSize {
 		game_time = 140u,
 		game_started = 160u,
 		region = 80u,
-		title_id = 160u
+        title_id = 160u
 	};
 };
 
@@ -410,11 +410,12 @@ struct CemuConfig
 	Vector2i pad_size{ -1,-1 };
 	ConfigValue<bool> pad_maximized;
 
-	ConfigValue<bool> check_update{false};
+	ConfigValue<bool> check_update{true};
+	ConfigValue<bool> receive_untested_updates{false};
 	ConfigValue<bool> save_screenshot{true};
 
 	ConfigValue<bool> did_show_vulkan_warning{false};
-	ConfigValue<bool> did_show_graphic_pack_download{false};
+	ConfigValue<bool> did_show_graphic_pack_download{false}; // no longer used but we keep the config value around in case people downgrade Cemu. Despite the name this was used for the Getting Started dialog
 	ConfigValue<bool> did_show_macos_disclaimer{false};
 
 	ConfigValue<bool> show_icon_column{ true };
@@ -429,7 +430,7 @@ struct CemuConfig
 		uint32 game_time = DefaultColumnSize::game_time;
 		uint32 game_started = DefaultColumnSize::game_started;
 		uint32 region = DefaultColumnSize::region;
-		uint32 title_id = 0;
+        uint32 title_id = 0;
 	} column_width{};
 
 	// graphics

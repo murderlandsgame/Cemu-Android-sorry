@@ -353,7 +353,7 @@ void RendererOutputShader::InitializeStatic()
 		s_hermit_shader = new RendererOutputShader(vertex_source, s_hermite_shader_source);
 		s_hermit_shader_ud = new RendererOutputShader(vertex_source_ud, s_hermite_shader_source);
 	}
-	else if (g_renderer->GetType() == RendererAPI::Vulkan)
+	else
 	{
 		vertex_source = GetVulkanVertexSource(false);
 		vertex_source_ud = GetVulkanVertexSource(true);
@@ -366,7 +366,5 @@ void RendererOutputShader::InitializeStatic()
 
 		s_hermit_shader = new RendererOutputShader(vertex_source, s_hermite_shader_source);
 		s_hermit_shader_ud = new RendererOutputShader(vertex_source_ud, s_hermite_shader_source);*/
-	} else {
-		cemuLog_logDebug(LogType::Force, "Output shader not implemented for Metal");
 	}
 }

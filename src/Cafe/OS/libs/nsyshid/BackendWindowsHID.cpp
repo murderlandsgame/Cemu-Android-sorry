@@ -123,7 +123,7 @@ namespace nsyshid::backend::windows
 		}
 		if (maxPacketOutputLength <= 0 || maxPacketOutputLength >= 0xF000)
 		{
-			cemuLog_logDebug(LogType::Force, "HID: Input packet length not available or out of range (length = {})", maxPacketInputLength);
+			cemuLog_logDebug(LogType::Force, "HID: Output packet length not available or out of range (length = {})", maxPacketOutputLength);
 			maxPacketOutputLength = 0x20;
 		}
 

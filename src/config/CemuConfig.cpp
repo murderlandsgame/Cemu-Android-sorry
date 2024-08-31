@@ -3,7 +3,6 @@
 #include "util/helpers/helpers.h"
 #include "config/ActiveSettings.h"
 
-#include "PermanentConfig.h"
 #include "ActiveSettings.h"
 
 XMLCemuConfig_t g_config(L"settings.xml");
@@ -13,23 +12,6 @@ void CemuConfig::SetMLCPath(fs::path path, bool save)
 	mlc_path.SetValue(_pathToUtf8(path));
 	if(save)
 		g_config.Save();
-
-	// if custom mlc path has been selected, store it in permanent config
-	if (path != ActiveSettings::GetDefaultMLCPath())
-	{
-		try
-		{
-			auto pconfig = PermanentConfig::Load();
-			pconfig.custom_mlc_path = _pathToUtf8(path);
-			pconfig.Store();
-		}
-		catch (const PSDisabledException&) {}
-		catch (const std::exception& ex)
-		{
-			cemuLog_log(LogType::Force, "can't store custom mlc path in permanent storage: {}", ex.what());
-		}
-	}
-
 	Account::RefreshAccounts();
 }
 
@@ -54,6 +36,7 @@ void CemuConfig::Load(XMLConfigParser& parser)
 	fullscreen_menubar = parser.get("fullscreen_menubar", false);
 	feral_gamemode = parser.get("feral_gamemode", false);
 	check_update = parser.get("check_update", check_update);
+	receive_untested_updates = parser.get("receive_untested_updates", check_update);
 	save_screenshot = parser.get("save_screenshot", save_screenshot);
 	did_show_vulkan_warning = parser.get("vk_warning", did_show_vulkan_warning);
 	did_show_graphic_pack_download = parser.get("gp_download", did_show_graphic_pack_download);
@@ -98,7 +81,7 @@ void CemuConfig::Load(XMLConfigParser& parser)
 	column_width.game_time = loadColumnSize("game_time_width", DefaultColumnSize::game_time);
 	column_width.game_started = loadColumnSize("game_started_width", DefaultColumnSize::game_started);
 	column_width.region = loadColumnSize("region_width", DefaultColumnSize::region);
-	column_width.title_id = loadColumnSize("title_id", DefaultColumnSize::title_id);
+    column_width.title_id = loadColumnSize("title_id", DefaultColumnSize::title_id);
 
 	recent_launch_files.clear();
 	auto launch_parser = parser.get("RecentLaunchFiles");
@@ -374,8 +357,9 @@ void CemuConfig::Save(XMLConfigParser& parser)
 	config.set<sint32>("language", language);
 	config.set<bool>("use_discord_presence", use_discord_presence);
 	config.set<bool>("fullscreen_menubar", fullscreen_menubar);
-	config.set<bool>("feral_gamemode", feral_gamemode);
+    	config.set<bool>("feral_gamemode", feral_gamemode);
 	config.set<bool>("check_update", check_update);
+	config.set<bool>("receive_untested_updates", receive_untested_updates);
 	config.set<bool>("save_screenshot", save_screenshot);
 	config.set<bool>("vk_warning", did_show_vulkan_warning);
 	config.set<bool>("gp_download", did_show_graphic_pack_download);
@@ -415,7 +399,7 @@ void CemuConfig::Save(XMLConfigParser& parser)
 	gamelist.set("game_time_width", column_width.game_time);
 	gamelist.set("game_started_width", column_width.game_started);
 	gamelist.set("region_width", column_width.region);
-	gamelist.set("title_id", column_width.title_id);
+    gamelist.set("title_id", column_width.title_id);
 
 	auto launch_files_parser = config.set("RecentLaunchFiles");
 	for (const auto& entry : recent_launch_files)

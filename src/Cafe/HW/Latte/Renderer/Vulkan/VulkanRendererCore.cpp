@@ -366,7 +366,7 @@ void* VulkanRenderer::indexData_reserveIndexMemory(uint32 size, uint32& offset, 
 	return resv.memPtr;
 }
 
-void VulkanRenderer::indexData_uploadIndexMemory(uint32 bufferIndex, uint32 offset, uint32 size)
+void VulkanRenderer::indexData_uploadIndexMemory(uint32 offset, uint32 size)
 {
 	// does nothing since the index buffer memory is coherent
 }

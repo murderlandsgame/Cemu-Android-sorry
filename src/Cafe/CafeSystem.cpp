@@ -398,11 +398,11 @@ void cemu_initForGame()
 	InfoLog_PrintActiveSettings();
 	Latte_Start();
 	// check for debugger entrypoint bp
-	if (g_gdbstub)
-	{
-		g_gdbstub->HandleEntryStop(_entryPoint);
-		g_gdbstub->Initialize();
-	}
+    if (g_gdbstub)
+    {
+        g_gdbstub->HandleEntryStop(_entryPoint);
+        g_gdbstub->Initialize();
+    }
 	debugger_handleEntryBreakpoint(_entryPoint);
 	// load graphic packs
 	cemuLog_log(LogType::Force, "------- Activate graphic packs -------");
@@ -440,11 +440,11 @@ namespace CafeSystem
 
 	void InitVirtualMlcStorage();
 	void MlcStorageMountTitle(TitleInfo& titleInfo);
-	void MlcStorageUnmountAllTitles();
+    void MlcStorageUnmountAllTitles();
 
-	static bool s_initialized = false;
+    static bool s_initialized = false;
 	static SystemImplementation* s_implementation{nullptr};
-	bool sLaunchModeIsStandalone = false;
+    bool sLaunchModeIsStandalone = false;
 	std::optional<std::vector<std::string>> s_overrideArgs;
 
 	bool sSystemRunning = false;
@@ -518,8 +518,8 @@ namespace CafeSystem
 	{
 		std::string buffer;
 		const char* platform = NULL;
-		#if __ANDROID__
-		platform = "Android";
+        #if __ANDROID__
+        platform = "Android";
 		#elif BOOST_OS_WINDOWS
 		uint32 buildNumber;
 		std::string windowsVersionName = GetWindowsNamedVersion(buildNumber);
@@ -616,44 +616,44 @@ namespace CafeSystem
 		s_implementation = impl;
 	}
 
-	void Shutdown()
-	{
-		cemu_assert_debug(s_initialized);
-		// if a title is running, shut it down
-		if (sSystemRunning)
-			ShutdownTitle();
-		// shutdown persistent subsystems (deprecated manual shutdown)
+    void Shutdown()
+    {
+        cemu_assert_debug(s_initialized);
+        // if a title is running, shut it down
+        if (sSystemRunning)
+            ShutdownTitle();
+        // shutdown persistent subsystems (deprecated manual shutdown)
 		iosu::odm::Shutdown();
 		iosu::act::Stop();
-		iosu::mcp::Shutdown();
-		iosu::fsa::Shutdown();
+        iosu::mcp::Shutdown();
+        iosu::fsa::Shutdown();
 		// shutdown IOSU modules
 		for(auto it = s_iosuModules.rbegin(); it != s_iosuModules.rend(); ++it)
 			(*it)->SystemExit();
-		s_initialized = false;
-	}
+        s_initialized = false;
+    }
 
 	std::string GetInternalVirtualCodeFolder()
 	{
 		return "/internal/current_title/code/";
 	}
 
-	void MountBaseDirectories()
-	{
-		const auto mlc = ActiveSettings::GetMlcPath();
-		FSCDeviceHostFS_Mount("/cemuBossStorage/", _pathToUtf8(mlc / "usr/boss/"), FSC_PRIORITY_BASE);
-		FSCDeviceHostFS_Mount("/vol/storage_mlc01/", _pathToUtf8(mlc / ""), FSC_PRIORITY_BASE);
-	}
+    void MountBaseDirectories()
+    {
+        const auto mlc = ActiveSettings::GetMlcPath();
+        FSCDeviceHostFS_Mount("/cemuBossStorage/", _pathToUtf8(mlc / "usr/boss/"), FSC_PRIORITY_BASE);
+        FSCDeviceHostFS_Mount("/vol/storage_mlc01/", _pathToUtf8(mlc / ""), FSC_PRIORITY_BASE);
+    }
 
-	void UnmountBaseDirectories()
-	{
-		fsc_unmount("/vol/storage_mlc01/", FSC_PRIORITY_BASE);
-		fsc_unmount("/cemuBossStorage/", FSC_PRIORITY_BASE);
-	}
+    void UnmountBaseDirectories()
+    {
+        fsc_unmount("/vol/storage_mlc01/", FSC_PRIORITY_BASE);
+        fsc_unmount("/cemuBossStorage/", FSC_PRIORITY_BASE);
+    }
 
 	STATUS_CODE LoadAndMountForegroundTitle(TitleId titleId)
 	{
-		cemuLog_log(LogType::Force, "Mounting title {:016x}", (uint64)titleId);
+        cemuLog_log(LogType::Force, "Mounting title {:016x}", (uint64)titleId);
 		sGameInfo_ForegroundTitle = CafeTitleList::GetGameInfo(titleId);
 		if (!sGameInfo_ForegroundTitle.IsValid())
 		{
@@ -712,30 +712,30 @@ namespace CafeSystem
 		return STATUS_CODE::SUCCESS;
 	}
 
-	void UnmountForegroundTitle()
-	{
-		if(sLaunchModeIsStandalone)
-			return;
-		cemu_assert_debug(sGameInfo_ForegroundTitle.IsValid()); // unmounting title which was never mounted?
-		if (!sGameInfo_ForegroundTitle.IsValid())
-			return;
-		sGameInfo_ForegroundTitle.GetBase().Unmount("/vol/content");
-		sGameInfo_ForegroundTitle.GetBase().Unmount(GetInternalVirtualCodeFolder());
-		if (sGameInfo_ForegroundTitle.HasUpdate())
-		{
-			if(auto& update = sGameInfo_ForegroundTitle.GetUpdate(); update.IsValid())
-			{
-				update.Unmount("/vol/content");
-				update.Unmount(GetInternalVirtualCodeFolder());
-			}
-		}
-		auto aocList = sGameInfo_ForegroundTitle.GetAOC();
-		if (!aocList.empty())
-		{
-			TitleInfo& titleAOC = aocList[0];
-			titleAOC.Unmount(fmt::format("/vol/aoc{:016x}", titleAOC.GetAppTitleId()));
-		}
-	}
+    void UnmountForegroundTitle()
+    {
+        if(sLaunchModeIsStandalone)
+            return;
+        cemu_assert_debug(sGameInfo_ForegroundTitle.IsValid()); // unmounting title which was never mounted?
+        if (!sGameInfo_ForegroundTitle.IsValid())
+            return;
+        sGameInfo_ForegroundTitle.GetBase().Unmount("/vol/content");
+        sGameInfo_ForegroundTitle.GetBase().Unmount(GetInternalVirtualCodeFolder());
+        if (sGameInfo_ForegroundTitle.HasUpdate())
+        {
+            if(auto& update = sGameInfo_ForegroundTitle.GetUpdate(); update.IsValid())
+            {
+                update.Unmount("/vol/content");
+                update.Unmount(GetInternalVirtualCodeFolder());
+            }
+        }
+        auto aocList = sGameInfo_ForegroundTitle.GetAOC();
+        if (!aocList.empty())
+        {
+            TitleInfo& titleAOC = aocList[0];
+            titleAOC.Unmount(fmt::format("/vol/aoc{:016x}", titleAOC.GetAppTitleId()));
+        }
+    }
 
 	STATUS_CODE SetupExecutable()
 	{
@@ -772,35 +772,35 @@ namespace CafeSystem
 		return STATUS_CODE::SUCCESS;
 	}
 
-	void SetupMemorySpace()
-	{
-		memory_mapForCurrentTitle();
-		LoadSharedData();
-	}
+    void SetupMemorySpace()
+    {
+        memory_mapForCurrentTitle();
+        LoadSharedData();
+    }
 
-	void DestroyMemorySpace()
-	{
-		memory_unmapForCurrentTitle();
-	}
+    void DestroyMemorySpace()
+    {
+        memory_unmapForCurrentTitle();
+    }
 
 	STATUS_CODE PrepareForegroundTitle(TitleId titleId)
 	{
 		CafeTitleList::WaitForMandatoryScan();
 		sLaunchModeIsStandalone = false;
-		_pathToExecutable.clear();
+        _pathToExecutable.clear();
 		TitleIdParser tip(titleId);
 		if (tip.GetType() == TitleIdParser::TITLE_TYPE::AOC || tip.GetType() == TitleIdParser::TITLE_TYPE::BASE_TITLE_UPDATE)
 			cemuLog_log(LogType::Force, "Launched titleId is not the base of a title");
-		// mount mlc storage
-		MountBaseDirectories();
-		// mount title folders
+        // mount mlc storage
+        MountBaseDirectories();
+        // mount title folders
 		STATUS_CODE r = LoadAndMountForegroundTitle(titleId);
 		if (r != STATUS_CODE::SUCCESS)
 			return r;
 		gameProfile_load();
 		// setup memory space and PPC recompiler
-		SetupMemorySpace();
-		PPCRecompiler_init();
+        SetupMemorySpace();
+        PPCRecompiler_init();
 		r = SetupExecutable(); // load RPX
 		if (r != STATUS_CODE::SUCCESS)
 			return r;
@@ -843,10 +843,10 @@ namespace CafeSystem
 		sForegroundTitleId = 0xFFFFFFFF00000000ULL | (uint64)h;
 		cemuLog_log(LogType::Force, "Generated placeholder TitleId: {:016x}", sForegroundTitleId);
 		// setup memory space and ppc recompiler
-		SetupMemorySpace();
-		PPCRecompiler_init();
-		// load executable
-		SetupExecutable();
+        SetupMemorySpace();
+        PPCRecompiler_init();
+        // load executable
+        SetupExecutable();
 		InitVirtualMlcStorage();
 		return STATUS_CODE::SUCCESS;
 	}
@@ -994,32 +994,32 @@ namespace CafeSystem
 
 	void UnmountCurrentTitle()
 	{
-		UnmountForegroundTitle();
-		fsc_unmount("/internal/code/", FSC_PRIORITY_BASE);
+        UnmountForegroundTitle();
+        fsc_unmount("/internal/code/", FSC_PRIORITY_BASE);
 	}
 
 	void ShutdownTitle()
 	{
 		if(!sSystemRunning)
 			return;
-		coreinit::OSSchedulerEnd();
-		Latte_Stop();
-		// reset Cafe OS userspace modules
-		snd_core::reset();
-		coreinit::OSAlarm_Shutdown();
-		GX2::_GX2DriverReset();
-		nn::save::ResetToDefaultState();
-		coreinit::__OSDeleteAllActivePPCThreads();
-		RPLLoader_ResetState();
+        coreinit::OSSchedulerEnd();
+        Latte_Stop();
+        // reset Cafe OS userspace modules
+        snd_core::reset();
+        coreinit::OSAlarm_Shutdown();
+        GX2::_GX2DriverReset();
+        nn::save::ResetToDefaultState();
+        coreinit::__OSDeleteAllActivePPCThreads();
+        RPLLoader_ResetState();
 		for(auto it = s_iosuModules.rbegin(); it != s_iosuModules.rend(); ++it)
 			(*it)->TitleStop();
-		// reset Cemu subsystems
-		PPCRecompiler_Shutdown();
-		GraphicPack2::Reset();
-		UnmountCurrentTitle();
-		MlcStorageUnmountAllTitles();
-		UnmountBaseDirectories();
-		DestroyMemorySpace();
+        // reset Cemu subsystems
+        PPCRecompiler_Shutdown();
+        GraphicPack2::Reset();
+        UnmountCurrentTitle();
+        MlcStorageUnmountAllTitles();
+        UnmountBaseDirectories();
+        DestroyMemorySpace();
 		sSystemRunning = false;
 	}
 
@@ -1096,15 +1096,15 @@ namespace CafeSystem
 			MlcStorageMountTitle(it);
 	}
 
-	void MlcStorageUnmountAllTitles()
-	{
-		for(auto& it : m_mlcMountedTitles)
-		{
-			std::string mlcStoragePath = GetMlcStoragePath(it.first);
-			it.second->Unmount(mlcStoragePath);
-		}
-		m_mlcMountedTitles.clear();
-	}
+    void MlcStorageUnmountAllTitles()
+    {
+        for(auto& it : m_mlcMountedTitles)
+        {
+            std::string mlcStoragePath = GetMlcStoragePath(it.first);
+            it.second->Unmount(mlcStoragePath);
+        }
+        m_mlcMountedTitles.clear();
+    }
 
 	uint32 GetRPXHashBase()
 	{

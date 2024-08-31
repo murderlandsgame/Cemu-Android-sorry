@@ -55,10 +55,10 @@ constexpr T SwapEndian(T value)
 		const auto tmp = bswap<uint32_t>(*(uint32_t*)&value);
 		return *(T*)&tmp;
 	}
-	else
-	{
-		static_assert(std::is_integral<T>::value, "unsupported betype specialization!");
-	}
+    else
+    {
+        static_assert(std::is_integral<T>::value, "unsupported betype specialization!");
+    }
 
 	return value;
 }
@@ -194,7 +194,7 @@ public:
 		return from_bevalue(T(~m_value));
 	}
 
-	//pre-increment
+	// pre-increment
 	betype<T>& operator++() requires std::is_integral_v<T>
 	{
 		m_value = SwapEndian(T(value() + 1));
