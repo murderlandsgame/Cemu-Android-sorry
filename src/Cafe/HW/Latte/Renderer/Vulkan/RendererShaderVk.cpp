@@ -469,6 +469,6 @@ void RendererShaderVk::ShaderCacheLoading_end()
 
 void RendererShaderVk::ShaderCacheLoading_Close()
 {
-    delete s_spirvCache;
-    s_spirvCache = nullptr;
+	delete s_spirvCache;
+	s_spirvCache = nullptr;
 }

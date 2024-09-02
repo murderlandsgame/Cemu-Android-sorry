@@ -20,11 +20,11 @@ public class NativeLibrary {
 
     public static native void setSurfaceSize(int width, int height, boolean isMainCanvas);
 
-    public static native void initializerRenderer();
-
-    public static native void initializeRendererSurface(boolean isMainCanvas);
+    public static native void initializerRenderer(Surface surface);
 
     public static native void startGame(long titleId);
+
+    public static native void setReplaceTVWithPadView(boolean swapped);
 
     public static native void recreateRenderSurface(boolean isMainCanvas);
 
@@ -241,10 +241,12 @@ public class NativeLibrary {
 
     public static native int getAudioDeviceVolume(boolean tv);
 
-    public record GraphicPackIdAndVirtualPath(long id, String virtualPath) {
+    public record GraphicPackBasicInfo(long id, String virtualPath, ArrayList<Long> titleIds) {
     }
 
-    public static native ArrayList<GraphicPackIdAndVirtualPath> getGraphicPackIdsAndVirtualPaths();
+    public static native ArrayList<Long> getInstalledGamesTitleIds();
+
+    public static native ArrayList<GraphicPackBasicInfo> getGraphicPackBasicInfos();
 
     public static class GraphicPackPreset {
         private final long graphicPackId;
@@ -279,7 +281,7 @@ public class NativeLibrary {
 
         public void setActivePreset(String activePreset) {
             if (presets.stream().noneMatch(s -> s.equals(activePreset)))
-                throw new IllegalArgumentException  ("Trying to set an invalid preset: " + activePreset);
+                throw new IllegalArgumentException("Trying to set an invalid preset: " + activePreset);
             setGraphicPackActivePreset(graphicPackId, category, activePreset);
             this.activePreset = activePreset;
         }
@@ -368,17 +370,33 @@ public class NativeLibrary {
 
     public static native void setOverlayRAMUsageEnabled(boolean enabled);
 
-    public static native boolean isOverlayVRAMUsageEnabled();
-
-    public static native void setOverlayVRAMUsageEnabled(boolean enabled);
-
     public static native boolean isOverlayDebugEnabled();
 
     public static native void setOverlayDebugEnabled(boolean enabled);
 
-    public static native void onTouchDown(int x, int y, boolean isPad);
+    public static native int getNotificationsPosition();
 
-    public static native void onTouchMove(int x, int y, boolean isPad);
+    public static native void setNotificationsPosition(int position);
 
-    public static native void onTouchUp(int x, int y, boolean isPad);
+    public static native boolean isNotificationControllerProfilesEnabled();
+
+    public static native void setNotificationControllerProfilesEnabled(boolean enabled);
+
+    public static native boolean isNotificationShaderCompilerEnabled();
+
+    public static native void setNotificationShaderCompilerEnabled(boolean enabled);
+
+    public static native boolean isNotificationFriendListEnabled();
+
+    public static native void setNotificationFriendListEnabled(boolean enabled);
+
+    public static native void onTouchDown(int x, int y, boolean isTV);
+
+    public static native void onTouchMove(int x, int y, boolean isTV);
+
+    public static native void onTouchUp(int x, int y, boolean isTV);
+
+    public static native void onMotion(long timestamp, float gyroX, float gyroY, float gyroZ, float accelX, float accelY, float accelZ);
+
+    public static native void setMotionEnabled(boolean motionEnabled);
 }

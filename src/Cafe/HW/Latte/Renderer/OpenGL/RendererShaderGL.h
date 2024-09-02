@@ -23,7 +23,7 @@ public:
 
 	static void ShaderCacheLoading_begin(uint64 cacheTitleId);
 	static void ShaderCacheLoading_end();
-    static void ShaderCacheLoading_Close();
+	static void ShaderCacheLoading_Close();
 
 private:
 	GLuint m_program;

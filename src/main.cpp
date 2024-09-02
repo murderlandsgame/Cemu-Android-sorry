@@ -62,9 +62,9 @@ std::vector<std::string*> sPutEnvMap;
 
 void _putenvSafe(const char* c)
 {
-    auto s = new std::string(c);
-    sPutEnvMap.emplace_back(s);
-    _putenv(s->c_str());
+	auto s = new std::string(c);
+	sPutEnvMap.emplace_back(s);
+	_putenv(s->c_str());
 }
 
 void reconfigureGLDrivers()
@@ -82,16 +82,16 @@ void reconfigureGLDrivers()
 	std::wstring tmpW = boost::nowide::widen(nvCacheDirEnvOption);
 	_wputenv(tmpW.c_str());
 #else
-    _putenvSafe(nvCacheDirEnvOption.c_str());
+	_putenvSafe(nvCacheDirEnvOption.c_str());
 #endif
-    _putenvSafe("__GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1");
+	_putenvSafe("__GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1");
 
 }
 
 void reconfigureVkDrivers()
 {
-    _putenvSafe("DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1=1");
-    _putenvSafe("DISABLE_VK_LAYER_VALVE_steam_fossilize_1=1");
+	_putenvSafe("DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1=1");
+	_putenvSafe("DISABLE_VK_LAYER_VALVE_steam_fossilize_1=1");
 }
 
 void WindowsInitCwd()
@@ -120,7 +120,7 @@ void CemuCommonInit()
 	PPCTimer_init();
 
 	WindowsInitCwd();
-    ExceptionHandler_Init();
+	ExceptionHandler_Init();
 	// read config
 	g_config.Load();
 	if (NetworkConfig::XMLExists())
@@ -254,9 +254,9 @@ int main(int argc, char *argv[])
 {
 	// runRecompilerTests();
 #if BOOST_OS_LINUX
-    XInitThreads();
+	XInitThreads();
 #endif
-    if (!LaunchSettings::HandleCommandline(argc, argv))
+	if (!LaunchSettings::HandleCommandline(argc, argv))
 		return 0;
 	gui_create();
 	return 0;

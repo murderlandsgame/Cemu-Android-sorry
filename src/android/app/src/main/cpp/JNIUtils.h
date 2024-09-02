@@ -154,5 +154,6 @@ namespace JNIUtils
 	};
 
 	Scopedjobject getEnumValue(JNIEnv* env, const std::string& enumClassName, const std::string& enumName);
+	jobject createJavaLongArrayList(JNIEnv* env, const std::vector<uint64_t>& values);
 	jobject createArrayList(JNIEnv* env, const std::vector<jobject>& objects);
 } // namespace JNIUtils

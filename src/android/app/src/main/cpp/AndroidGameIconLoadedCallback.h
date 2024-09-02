@@ -18,7 +18,7 @@ class AndroidGameIconLoadedCallback : public GameIconLoadedCallback {
 		JNIUtils::ScopedJNIENV env;
 		jintArray jIconData = env->NewIntArray(width * height);
 		env->SetIntArrayRegion(jIconData, 0, width * height, reinterpret_cast<const jint*>(colors));
-		env->CallVoidMethod(*m_gameTitleLoadedCallbackObj, m_onGameIconLoadedMID, *reinterpret_cast<const jlong*>(&titleId), jIconData, width, height);
+		env->CallVoidMethod(*m_gameTitleLoadedCallbackObj, m_onGameIconLoadedMID, static_cast<jlong>(titleId), jIconData, width, height);
 		env->DeleteLocalRef(jIconData);
 	}
 };

@@ -90,11 +90,11 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugUtilsCallback(VkDebugUtilsMessageSeverityFla
 
 std::vector<VulkanRenderer::DeviceInfo> VulkanRenderer::GetDevices()
 {
-    if(!vkEnumerateInstanceVersion)
-    {
-        cemuLog_log(LogType::Force, "Vulkan cant list devices because Vulkan loader failed");
-        return {};
-    }
+	if(!vkEnumerateInstanceVersion)
+	{
+		cemuLog_log(LogType::Force, "Vulkan cant list devices because Vulkan loader failed");
+		return {};
+	}
 	uint32 apiVersion = VK_API_VERSION_1_1;
 	if (vkEnumerateInstanceVersion(&apiVersion) != VK_SUCCESS)
 	{
@@ -109,19 +109,19 @@ std::vector<VulkanRenderer::DeviceInfo> VulkanRenderer::GetDevices()
 	requiredExtensions.emplace_back(VK_KHR_SURFACE_EXTENSION_NAME);
 	#if BOOST_OS_WINDOWS
 	requiredExtensions.emplace_back(VK_KHR_WIN32_SURFACE_EXTENSION_NAME);
-    #elif BOOST_OS_LINUX
-    #if __ANDROID__
+	#elif BOOST_OS_LINUX
+	#if __ANDROID__
 	requiredExtensions.emplace_back(VK_KHR_ANDROID_SURFACE_EXTENSION_NAME);
-    #else
+	#else
 	auto backend = GuiSystem::getWindowInfo().window_main.backend;
 	if(backend == GuiSystem::WindowHandleInfo::Backend::X11)
 		requiredExtensions.emplace_back(VK_KHR_XLIB_SURFACE_EXTENSION_NAME);
 	#ifdef HAS_WAYLAND
 	else if (backend == GuiSystem::WindowHandleInfo::Backend::Wayland)
 		requiredExtensions.emplace_back(VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME);
-    #endif // HAS_WAYLAND
-    #endif // __ANDROID__
-    #elif BOOST_OS_MACOS
+	#endif // HAS_WAYLAND
+	#endif // __ANDROID__
+	#elif BOOST_OS_MACOS
 	requiredExtensions.emplace_back(VK_EXT_METAL_SURFACE_EXTENSION_NAME);
 	#endif
 
@@ -1197,18 +1197,18 @@ std::vector<const char*> VulkanRenderer::CheckInstanceExtensionSupport(FeatureCo
 	requiredInstanceExtensions.emplace_back(VK_KHR_SURFACE_EXTENSION_NAME);
 	#if BOOST_OS_WINDOWS
 	requiredInstanceExtensions.emplace_back(VK_KHR_WIN32_SURFACE_EXTENSION_NAME);
-    #elif BOOST_OS_LINUX
-    #if __ANDROID__
+	#elif BOOST_OS_LINUX
+	#if __ANDROID__
 	requiredInstanceExtensions.emplace_back(VK_KHR_ANDROID_SURFACE_EXTENSION_NAME);
-    #else
+	#else
 	auto backend = GuiSystem::getWindowInfo().window_main.backend;
 	if(backend == GuiSystem::WindowHandleInfo::Backend::X11)
 		requiredInstanceExtensions.emplace_back(VK_KHR_XLIB_SURFACE_EXTENSION_NAME);
 	#if HAS_WAYLAND
 	else if (backend == GuiSystem::WindowHandleInfo::Backend::Wayland)
 		requiredInstanceExtensions.emplace_back(VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME);
-    #endif // HAS_WAYLAND
-    #endif // __ANDROID__
+	#endif // HAS_WAYLAND
+	#endif // __ANDROID__
 	#elif BOOST_OS_MACOS
 	requiredInstanceExtensions.emplace_back(VK_EXT_METAL_SURFACE_EXTENSION_NAME);
 	#endif
@@ -1292,77 +1292,77 @@ VkSurfaceKHR VulkanRenderer::CreateWinSurface(VkInstance instance, HWND hwindow)
 #if __ANDROID__
 VkSurfaceKHR VulkanRenderer::CreateAndroidSurface(VkInstance instance, ANativeWindow* window)
 {
-    VkAndroidSurfaceCreateInfoKHR sci{};
-    sci.sType = VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR;
-    sci.flags = 0;
-    sci.window = window;
+	VkAndroidSurfaceCreateInfoKHR sci{};
+	sci.sType = VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR;
+	sci.flags = 0;
+	sci.window = window;
 
-    VkSurfaceKHR result;
-    VkResult err;
-    if ((err = vkCreateAndroidSurfaceKHR(instance, &sci, nullptr, &result)) != VK_SUCCESS)
-    {
+	VkSurfaceKHR result;
+	VkResult err;
+	if ((err = vkCreateAndroidSurfaceKHR(instance, &sci, nullptr, &result)) != VK_SUCCESS)
+	{
 		cemuLog_log(LogType::Force, "Cannot create an Android Vulkan surface: {}", (sint32)err);
-        throw std::runtime_error(fmt::format("Cannot create an Android Vulkan surface: {}", err));
-    }
+		throw std::runtime_error(fmt::format("Cannot create an Android Vulkan surface: {}", err));
+	}
 
-    return result;
+	return result;
 }
 #else
 VkSurfaceKHR VulkanRenderer::CreateXlibSurface(VkInstance instance, Display* dpy, Window window)
 {
-    VkXlibSurfaceCreateInfoKHR sci{};
-    sci.sType = VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR;
-    sci.flags = 0;
+	VkXlibSurfaceCreateInfoKHR sci{};
+	sci.sType = VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR;
+	sci.flags = 0;
 	sci.dpy = dpy;
-    sci.window = window;
+	sci.window = window;
 
-    VkSurfaceKHR result;
-    VkResult err;
-    if ((err = vkCreateXlibSurfaceKHR(instance, &sci, nullptr, &result)) != VK_SUCCESS)
-    {
+	VkSurfaceKHR result;
+	VkResult err;
+	if ((err = vkCreateXlibSurfaceKHR(instance, &sci, nullptr, &result)) != VK_SUCCESS)
+	{
 		cemuLog_log(LogType::Force, "Cannot create a X11 Vulkan surface: {}", (sint32)err);
-        throw std::runtime_error(fmt::format("Cannot create a X11 Vulkan surface: {}", err));
-    }
+		throw std::runtime_error(fmt::format("Cannot create a X11 Vulkan surface: {}", err));
+	}
 
-    return result;
+	return result;
 }
 
 VkSurfaceKHR VulkanRenderer::CreateXcbSurface(VkInstance instance, xcb_connection_t* connection, xcb_window_t window)
 {
-    VkXcbSurfaceCreateInfoKHR sci{};
-    sci.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
-    sci.flags = 0;
-    sci.connection = connection;
-    sci.window = window;
+	VkXcbSurfaceCreateInfoKHR sci{};
+	sci.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
+	sci.flags = 0;
+	sci.connection = connection;
+	sci.window = window;
 
-    VkSurfaceKHR result;
-    VkResult err;
-    if ((err = vkCreateXcbSurfaceKHR(instance, &sci, nullptr, &result)) != VK_SUCCESS)
-    {
-        cemuLog_log(LogType::Force, "Cannot create a XCB Vulkan surface: {}", (sint32)err);
-        throw std::runtime_error(fmt::format("Cannot create a XCB Vulkan surface: {}", err));
-    }
+	VkSurfaceKHR result;
+	VkResult err;
+	if ((err = vkCreateXcbSurfaceKHR(instance, &sci, nullptr, &result)) != VK_SUCCESS)
+	{
+		cemuLog_log(LogType::Force, "Cannot create a XCB Vulkan surface: {}", (sint32)err);
+		throw std::runtime_error(fmt::format("Cannot create a XCB Vulkan surface: {}", err));
+	}
 
-    return result;
+	return result;
 }
 #ifdef HAS_WAYLAND
 VkSurfaceKHR VulkanRenderer::CreateWaylandSurface(VkInstance instance, wl_display* display, wl_surface* surface)
 {
-    VkWaylandSurfaceCreateInfoKHR sci{};
-    sci.sType = VK_STRUCTURE_TYPE_WAYLAND_SURFACE_CREATE_INFO_KHR;
-    sci.flags = 0;
+	VkWaylandSurfaceCreateInfoKHR sci{};
+	sci.sType = VK_STRUCTURE_TYPE_WAYLAND_SURFACE_CREATE_INFO_KHR;
+	sci.flags = 0;
 	sci.display = display;
 	sci.surface = surface;
 
-    VkSurfaceKHR result;
-    VkResult err;
-    if ((err = vkCreateWaylandSurfaceKHR(instance, &sci, nullptr, &result)) != VK_SUCCESS)
-    {
-        cemuLog_log(LogType::Force, "Cannot create a Wayland Vulkan surface: {}", (sint32)err);
-        throw std::runtime_error(fmt::format("Cannot create a Wayland Vulkan surface: {}", err));
-    }
+	VkSurfaceKHR result;
+	VkResult err;
+	if ((err = vkCreateWaylandSurfaceKHR(instance, &sci, nullptr, &result)) != VK_SUCCESS)
+	{
+		cemuLog_log(LogType::Force, "Cannot create a Wayland Vulkan surface: {}", (sint32)err);
+		throw std::runtime_error(fmt::format("Cannot create a Wayland Vulkan surface: {}", err));
+	}
 
-    return result;
+	return result;
 }
 #endif // HAS_WAYLAND
 #endif // __ANDROID__
@@ -2813,7 +2813,7 @@ void VulkanRenderer::ClearColorImageRaw(VkImage image, uint32 sliceIndex, uint32
 
 	vkCmdClearColorImage(m_state.currentCommandBuffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &color, 1, &subresourceRange);
 
-    barrier_image<ANY_TRANSFER, SYNC_OP::ANY_TRANSFER | SYNC_OP::IMAGE_READ | SYNC_OP::IMAGE_WRITE>(image, subresourceRange, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, outputLayout);
+	barrier_image<ANY_TRANSFER, SYNC_OP::ANY_TRANSFER | SYNC_OP::IMAGE_READ | SYNC_OP::IMAGE_WRITE>(image, subresourceRange, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, outputLayout);
 }
 
 void VulkanRenderer::ClearColorImage(LatteTextureVk* vkTexture, uint32 sliceIndex, uint32 mipIndex, const VkClearColorValue& color, VkImageLayout outputLayout)

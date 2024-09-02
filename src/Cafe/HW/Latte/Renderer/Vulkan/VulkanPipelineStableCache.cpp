@@ -119,11 +119,11 @@ void VulkanPipelineStableCache::EndLoading()
 
 void VulkanPipelineStableCache::Close()
 {
-    if(s_cache)
-    {
-        delete s_cache;
-        s_cache = nullptr;
-    }
+	if(s_cache)
+	{
+		delete s_cache;
+		s_cache = nullptr;
+	}
 }
 
 struct CachedPipeline

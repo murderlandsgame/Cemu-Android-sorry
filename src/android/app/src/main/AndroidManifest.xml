@@ -20,17 +20,11 @@
         tools:targetApi="31">
         <activity
             android:name=".emulation.EmulationActivity"
+            android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="userLandscape"
             tools:ignore="DiscouragedApi" />
-        <activity
-            android:name=".inputoverlay.InputOverlayConfigureActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".settings.SettingsActivity"
-            android:screenOrientation="userLandscape"
-            tools:ignore="DiscouragedApi" />
-
         <activity
             android:name=".settings.SettingsActivity"
             android:exported="false"
