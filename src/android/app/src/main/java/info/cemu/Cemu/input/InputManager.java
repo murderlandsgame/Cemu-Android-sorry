@@ -45,6 +45,7 @@ public class InputManager {
     }
 
     private static final float MIN_ABS_AXIS_VALUE = 0.33f;
+
     public boolean mapMotionEventToMappingId(int controllerIndex, int mappingId, MotionEvent event) {
         if (isMotionEventFromJoystick(event)) {
             InputDevice device = event.getDevice();
