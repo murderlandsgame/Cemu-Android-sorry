@@ -144,19 +144,19 @@
 #endif
 
 #if (defined(_M_AMD64) || defined(__x86_64__)) || \
-    (defined(_M_ARM64) || defined(__arm64__))
+	(defined(_M_ARM64) || defined(__arm64__))
 #define SSE2NEON_HAS_BITSCAN64
 #endif
 #endif
 
 #if defined(__GNUC__) || defined(__clang__)
 #define _sse2neon_define0(type, s, body) \
-    __extension__({                      \
-        type _a = (s);                   \
-        body                             \
-    })
+	__extension__({                      \
+		type _a = (s);                   \
+		body                             \
+	})
 #define _sse2neon_define1(type, s, body) \
-    __extension__({                      \
+	__extension__({                      \
         type _a = (s);                   \
         body                             \
     })

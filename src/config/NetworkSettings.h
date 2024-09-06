@@ -14,16 +14,16 @@ enum class NetworkService
 
 struct NetworkConfig
 {
-    NetworkConfig()
+	NetworkConfig()
 	{
 
 	};
 
 	NetworkConfig(const NetworkConfig&) = delete;
 
-    ConfigValue<std::string> networkname;
-    ConfigValue<bool> disablesslver = false;
-    struct
+	ConfigValue<std::string> networkname;
+	ConfigValue<bool> disablesslver = false;
+	struct
 	{
 		 ConfigValue<std::string> ACT;
 		 ConfigValue<std::string> ECS;
@@ -37,12 +37,12 @@ struct NetworkConfig
 		 ConfigValue<std::string> OLV;
 	}urls{};
 
-    public:
-    static void LoadOnce();
-    void Load(XMLConfigParser& parser);
-    void Save(XMLConfigParser& parser);
-    
-    static bool XMLExists();
+	public:
+	static void LoadOnce();
+	void Load(XMLConfigParser& parser);
+	void Save(XMLConfigParser& parser);
+
+	static bool XMLExists();
 };
 
 struct NintendoURLs {

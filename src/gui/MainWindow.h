@@ -61,8 +61,8 @@ public:
 	MainWindow();
 	~MainWindow();
 
-    void CreateGameListAndStatusBar();
-    void DestroyGameListAndStatusBar();
+	void CreateGameListAndStatusBar();
+	void DestroyGameListAndStatusBar();
 
 
 	virtual void updateWindowTitles(bool isIdle, bool isLoading, double fps) override;

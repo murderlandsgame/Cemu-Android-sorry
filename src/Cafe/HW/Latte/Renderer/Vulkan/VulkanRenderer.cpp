@@ -1546,6 +1546,7 @@ void VulkanRenderer::ImguiInit()
 	{
 		// TODO: renderpass swapchain format may change between srgb and rgb -> need reinit
 		VkAttachmentDescription colorAttachment = {};
+		colorAttachment.flags = VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT;
 		colorAttachment.format = m_mainSwapchainInfo->m_surfaceFormat.format;
 		colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
 		colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
@@ -1562,6 +1563,12 @@ void VulkanRenderer::ImguiInit()
 		subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
 		subpass.colorAttachmentCount = 1;
 		subpass.pColorAttachments = &colorAttachmentRef;
+		subpass.inputAttachmentCount = 0;
+		subpass.pInputAttachments = nullptr;
+		subpass.pResolveAttachments = nullptr;
+		subpass.pDepthStencilAttachment = nullptr;
+		subpass.preserveAttachmentCount = 0;
+		subpass.pPreserveAttachments = nullptr;
 
 		VkRenderPassCreateInfo renderPassInfo = {};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;

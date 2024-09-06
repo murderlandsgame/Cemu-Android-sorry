@@ -933,7 +933,7 @@ void GeneralSettings2::StoreConfig()
 	config.check_update = m_auto_update->IsChecked();
 	config.save_screenshot = m_save_screenshot->IsChecked();
 #if BOOST_OS_LINUX && defined(ENABLE_FERAL_GAMEMODE)
-    config.feral_gamemode = m_feral_gamemode->IsChecked();
+	config.feral_gamemode = m_feral_gamemode->IsChecked();
 #endif
 	config.disable_screensaver = m_disable_screensaver->IsChecked();
 	// Toggle while a game is running
@@ -1283,7 +1283,7 @@ void GeneralSettings2::OnAccountDelete(wxCommandEvent& event)
 
 	const std::wstring format_str = _("Are you sure you want to delete the account {} with id {:x}?").ToStdWstring();
 	const std::wstring msg = fmt::format(fmt::runtime(format_str),
-	                                     std::wstring{ account.GetMiiName() }, account.GetPersistentId());
+										 std::wstring{ account.GetMiiName() }, account.GetPersistentId());
 
 	const int answer = wxMessageBox(msg, _("Confirmation"), wxYES_NO | wxCENTRE | wxICON_QUESTION, this);
 	if (answer == wxNO)
@@ -1574,7 +1574,7 @@ void GeneralSettings2::ApplyConfig()
 
 	m_disable_screensaver->SetValue(config.disable_screensaver);
 #if BOOST_OS_LINUX && defined(ENABLE_FERAL_GAMEMODE)
-    	m_feral_gamemode->SetValue(config.feral_gamemode);
+		m_feral_gamemode->SetValue(config.feral_gamemode);
 #endif
 	// temporary workaround because feature crashes on macOS
 #if BOOST_OS_MACOS

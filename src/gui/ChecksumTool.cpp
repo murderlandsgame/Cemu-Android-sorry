@@ -40,42 +40,42 @@ const char kSchema[] = R"(
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "title_id": {
-      "type": "string"
-    },
-    "region": {
-      "type": "integer"
-    },
-    "version": {
-      "type": "integer"
-    },
+	"title_id": {
+	  "type": "string"
+	},
+	"region": {
+	  "type": "integer"
+	},
+	"version": {
+	  "type": "integer"
+	},
 	"wud_hash": {
-      "type": "string"
-    },
-    "files": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "file": {
-            "type": "string"
-          },
-          "hash": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "file",
-          "hash"
-        ]
-      }
-    }
+	  "type": "string"
+	},
+	"files": {
+	  "type": "array",
+	  "items": {
+		"type": "object",
+		"properties": {
+		  "file": {
+			"type": "string"
+		  },
+		  "hash": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "file",
+		  "hash"
+		]
+	  }
+	}
   },
   "required": [
-    "title_id",
-    "region",
-    "version",
-    "files"
+	"title_id",
+	"region",
+	"version",
+	"files"
   ]
 })";
 
