@@ -462,9 +462,9 @@ void ImGui_ImplVulkan_DestroyFontsTexture()
 {
 	ImGui_ImplVulkan_InitInfo* v = &g_VulkanInitInfo;
 	ImGui_ImplVulkan_DestroyFontUploadObjects();
-	if (g_FontView)			 { vkDestroyImageView(v->Device, g_FontView, v->Allocator); g_FontView = VK_NULL_HANDLE; }
-	if (g_FontImage)			{ vkDestroyImage(v->Device, g_FontImage, v->Allocator); g_FontImage = VK_NULL_HANDLE; }
-	if (g_FontMemory)		   { vkFreeMemory(v->Device, g_FontMemory, v->Allocator); g_FontMemory = VK_NULL_HANDLE; }
+	if (g_FontView)			{ vkDestroyImageView(v->Device, g_FontView, v->Allocator); g_FontView = VK_NULL_HANDLE; }
+	if (g_FontImage)		{ vkDestroyImage(v->Device, g_FontImage, v->Allocator); g_FontImage = VK_NULL_HANDLE; }
+	if (g_FontMemory)		{ vkFreeMemory(v->Device, g_FontMemory, v->Allocator); g_FontMemory = VK_NULL_HANDLE; }
 }
 
 bool ImGui_ImplVulkan_CreateFontsTexture(VkCommandBuffer command_buffer)
