@@ -1161,7 +1161,7 @@ void ImGui_ImplVulkanH_CreateWindowSwapchain(VkPhysicalDevice physical_device, V
 	// Create the Render Pass
 	{
 		VkAttachmentDescription attachment = {};
-		colorAttachment.flags = VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT;
+		attachment.flags = VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT;
 		attachment.format = wd->SurfaceFormat.format;
 		attachment.samples = VK_SAMPLE_COUNT_1_BIT;
 		attachment.loadOp = wd->ClearEnable ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_LOAD;// VK_ATTACHMENT_LOAD_OP_DONT_CARE;
@@ -1176,7 +1176,7 @@ void ImGui_ImplVulkanH_CreateWindowSwapchain(VkPhysicalDevice physical_device, V
 		VkSubpassDescription subpass = {};
 		subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
 		subpass.colorAttachmentCount = 1;
-		subpass.pColorAttachments = &colorAttachmentRef;
+		subpass.pColorAttachments = &color_attachment;
 		subpass.inputAttachmentCount = 0;
 		subpass.pInputAttachments = nullptr;
 		subpass.pResolveAttachments = nullptr;
