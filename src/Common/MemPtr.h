@@ -176,8 +176,11 @@ static_assert(std::is_trivially_copyable_v<MEMPTR<void*>>);
 #include "StackAllocator.h"
 #include "SysAllocator.h"
 
+template<typename T>
+struct fmt::formatter<MEMPTR<T>> : formatter<string_view>
+{
 template<typename FormatContext>
-	auto format(const MEMPTR<T>& v, FormatContext& ctx) const -> format_context::iterator
+		auto format(const MEMPTR<T>& v, FormatContext& ctx) const -> format_context::iterator
 	{
 		return fmt::format_to(ctx.out(), "{:#x}", v.GetMPTR());
 	}
