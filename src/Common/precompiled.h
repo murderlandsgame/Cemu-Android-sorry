@@ -94,50 +94,50 @@ namespace fs
 inline bool is_directory(const std::filesystem::path& p)
 {
 #if __ANDROID__
-    if (FilesystemAndroid::isContentUri(p))
-        return FilesystemAndroid::isDirectory(p);
+	if (FilesystemAndroid::isContentUri(p))
+		return FilesystemAndroid::isDirectory(p);
 #endif  // __ANDROID__
-    return std::filesystem::is_directory(p);
+	return std::filesystem::is_directory(p);
 }
 inline bool is_directory(const std::filesystem::path& p, std::error_code& ec)
 {
 #if __ANDROID__
-    if (FilesystemAndroid::isContentUri(p))
-        return FilesystemAndroid::isDirectory(p);
+	if (FilesystemAndroid::isContentUri(p))
+		return FilesystemAndroid::isDirectory(p);
 #endif  // __ANDROID__
-    return std::filesystem::is_directory(p, ec);
+	return std::filesystem::is_directory(p, ec);
 }
 inline bool is_file(const std::filesystem::path& p)
 {
 #if __ANDROID__
-    if (FilesystemAndroid::isContentUri(p))
-        return FilesystemAndroid::isFile(p);
+	if (FilesystemAndroid::isContentUri(p))
+		return FilesystemAndroid::isFile(p);
 #endif  // __ANDROID__
-    return std::filesystem::is_regular_file(p);
+	return std::filesystem::is_regular_file(p);
 }
 inline bool is_file(const std::filesystem::path& p, std::error_code& ec)
 {
 #if __ANDROID__
-    if (FilesystemAndroid::isContentUri(p))
-        return FilesystemAndroid::isFile(p);
+	if (FilesystemAndroid::isContentUri(p))
+		return FilesystemAndroid::isFile(p);
 #endif  // __ANDROID__
-    return std::filesystem::is_regular_file(p, ec);
+	return std::filesystem::is_regular_file(p, ec);
 }
 inline bool exists(const std::filesystem::path& p)
 {
 #if __ANDROID__
-    if (FilesystemAndroid::isContentUri(p))
-        return FilesystemAndroid::exists(p);
+	if (FilesystemAndroid::isContentUri(p))
+		return FilesystemAndroid::exists(p);
 #endif  // __ANDROID__
-    return std::filesystem::exists(p);
+	return std::filesystem::exists(p);
 }
 inline bool exists(const std::filesystem::path& p, std::error_code& ec)
 {
 #if __ANDROID__
-    if (FilesystemAndroid::isContentUri(p))
-        return FilesystemAndroid::exists(p);
+	if (FilesystemAndroid::isContentUri(p))
+		return FilesystemAndroid::exists(p);
 #endif  // __ANDROID__
-    return std::filesystem::exists(p, ec);
+	return std::filesystem::exists(p, ec);
 }
 }  // namespace fs
 }  // namespace cemu);
@@ -199,44 +199,44 @@ inline sint16 _swapEndianS16(sint16 v)
 inline uint64 _swapEndianU64(uint64 v)
 {
 #if BOOST_OS_MACOS
-    return OSSwapInt64(v);
+	return OSSwapInt64(v);
 #else
-    return bswap_64(v);
+	return bswap_64(v);
 #endif
 }
 
 inline uint32 _swapEndianU32(uint32 v)
 {
 #if BOOST_OS_MACOS
-    return OSSwapInt32(v);
+	return OSSwapInt32(v);
 #else
-    return bswap_32(v);
+	return bswap_32(v);
 #endif
 }
 
 inline sint32 _swapEndianS32(sint32 v)
 {
 #if BOOST_OS_MACOS
-    return (sint32)OSSwapInt32((uint32)v);
+	return (sint32)OSSwapInt32((uint32)v);
 #else
-    return (sint32)bswap_32((uint32)v);
+	return (sint32)bswap_32((uint32)v);
 #endif
 }
 
 inline uint16 _swapEndianU16(uint16 v)
 {
-    return (v >> 8) | (v << 8);
+	return (v >> 8) | (v << 8);
 }
 
 inline sint16 _swapEndianS16(sint16 v)
 {
-    return (sint16)(((uint16)v >> 8) | ((uint16)v << 8));
+	return (sint16)(((uint16)v >> 8) | ((uint16)v << 8));
 }
 
 inline uint64 _umul128(uint64 multiplier, uint64 multiplicand, uint64 *highProduct) {
-    unsigned __int128 x = (unsigned __int128)multiplier * (unsigned __int128)multiplicand;
-    *highProduct = (x >> 64);
-    return x & 0xFFFFFFFFFFFFFFFF;
+	unsigned __int128 x = (unsigned __int128)multiplier * (unsigned __int128)multiplicand;
+	*highProduct = (x >> 64);
+	return x & 0xFFFFFFFFFFFFFFFF;
 }
 
 typedef uint8_t BYTE;
@@ -245,15 +245,15 @@ typedef int32_t LONG;
 typedef int64_t LONGLONG;
 
 typedef union _LARGE_INTEGER {
-    struct {
-        DWORD LowPart;
-        LONG  HighPart;
-    };
-    struct {
-        DWORD LowPart;
-        LONG  HighPart;
-    } u;
-    LONGLONG QuadPart;
+	struct {
+		DWORD LowPart;
+		LONG  HighPart;
+	};
+	struct {
+		DWORD LowPart;
+		LONG  HighPart;
+	} u;
+	LONGLONG QuadPart;
 } LARGE_INTEGER, *PLARGE_INTEGER;
 
 #define DEFINE_ENUM_FLAG_OPERATORS(T)                                                                                                                                            \
@@ -284,18 +284,18 @@ inline void SetBits(T& value, uint32 index, uint32 numBits, uint32 bitValue)
 #if !defined(_MSC_VER) || defined(__clang__) // clang-cl does not have built-in _udiv128
 inline uint64 _udiv128(uint64 highDividend, uint64 lowDividend, uint64 divisor, uint64 *remainder)
 {
-    unsigned __int128 dividend = (((unsigned __int128)highDividend) << 64) | ((unsigned __int128)lowDividend);
-    *remainder = (uint64)((dividend % divisor) & 0xFFFFFFFFFFFFFFFF);
-    return       (uint64)((dividend / divisor) & 0xFFFFFFFFFFFFFFFF);
+	unsigned __int128 dividend = (((unsigned __int128)highDividend) << 64) | ((unsigned __int128)lowDividend);
+	*remainder = (uint64)((dividend % divisor) & 0xFFFFFFFFFFFFFFFF);
+	return       (uint64)((dividend / divisor) & 0xFFFFFFFFFFFFFFFF);
 }
 #endif
 
 #if defined(_MSC_VER)
-    #define UNREACHABLE __assume(false)
+	#define UNREACHABLE __assume(false)
 	#define ASSUME(__cond) __assume(__cond)
 	#define TLS_WORKAROUND_NOINLINE // no-op for MSVC as it has a flag for fiber-safe TLS optimizations
 #elif defined(__GNUC__) && !defined(__llvm__)
-    #define UNREACHABLE __builtin_unreachable()
+	#define UNREACHABLE __builtin_unreachable()
 	#define ASSUME(__cond) __attribute__((assume(__cond)))
 	#define TLS_WORKAROUND_NOINLINE __attribute__((noinline))
 #elif defined(__clang__)
@@ -303,26 +303,26 @@ inline uint64 _udiv128(uint64 highDividend, uint64 lowDividend, uint64 divisor, 
 	#define ASSUME(__cond) __builtin_assume(__cond)
 	#define TLS_WORKAROUND_NOINLINE __attribute__((noinline))
 #else
-    #error Unknown compiler
+	#error Unknown compiler
 #endif
 
 #if defined(_MSC_VER)
-    #define DEBUG_BREAK __debugbreak()
+	#define DEBUG_BREAK __debugbreak()
 #else
-    #include <csignal>
-    #define DEBUG_BREAK raise(SIGTRAP) 
+	#include <csignal>
+	#define DEBUG_BREAK raise(SIGTRAP) 
 #endif
 
 #if defined(_MSC_VER)
-    #define DLLEXPORT __declspec(dllexport)
+	#define DLLEXPORT __declspec(dllexport)
 #elif defined(__GNUC__)
-    #if BOOST_OS_WINDOWS
-        #define DLLEXPORT __attribute__((dllexport))
-    #else
-        #define DLLEXPORT
-    #endif
+	#if BOOST_OS_WINDOWS
+		#define DLLEXPORT __attribute__((dllexport))
+	#else
+		#define DLLEXPORT
+	#endif
 #else
-    #error No definition for DLLEXPORT
+	#error No definition for DLLEXPORT
 #endif
 
 #if BOOST_OS_WINDOWS
@@ -338,10 +338,10 @@ inline uint64 _udiv128(uint64 highDividend, uint64 lowDividend, uint64 divisor, 
 
 inline unsigned char _addcarry_u64(unsigned char carry, unsigned long long a, unsigned long long b, unsigned long long *result)
 {
-    *result = a + b + (unsigned long long)carry;
-    if (*result < a)
-        return 1;
-    return 0;
+	*result = a + b + (unsigned long long)carry;
+	if (*result < a)
+		return 1;
+	return 0;
 }
 
 #endif
@@ -351,10 +351,10 @@ inline unsigned char _addcarry_u64(unsigned char carry, unsigned long long a, un
 
 inline void cemu_assert(bool _condition)
 {
-    if ((_condition) == false)
-    {
-        DEBUG_BREAK;
-    }
+	if ((_condition) == false)
+	{
+		DEBUG_BREAK;
+	}
 }
 
 #ifndef CEMU_DEBUG_ASSERT
@@ -379,23 +379,23 @@ inline void cemu_assert_error()
 #else
 inline void cemu_assert_debug(bool _condition)
 {
-    if ((_condition) == false)
-        DEBUG_BREAK;
+	if ((_condition) == false)
+		DEBUG_BREAK;
 }
 
 inline void cemu_assert_unimplemented()
 {
-    DEBUG_BREAK;
+	DEBUG_BREAK;
 }
 
 inline void cemu_assert_suspicious()
 {
-    DEBUG_BREAK;
+	DEBUG_BREAK;
 }
 
 inline void cemu_assert_error()
 {
-    DEBUG_BREAK;
+	DEBUG_BREAK;
 }
 #endif
 
@@ -419,40 +419,34 @@ constexpr uint32_t ppcsizeof() { return (uint32_t) sizeof(T); }
 template <typename T>
 void vectorAppendUnique(std::vector<T>& vec, const T& val) // for cases where a small vector is more efficient than a set
 {
-    if (std::find(vec.begin(), vec.end(), val) != vec.end())
-        return;
-    vec.emplace_back(val);
+	if (std::find(vec.begin(), vec.end(), val) != vec.end())
+		return;
+	vec.emplace_back(val);
 }
 
 template <typename T>
 void vectorRemoveByValue(std::vector<T>& vec, const T& val)
 {
-    vec.erase(std::remove(vec.begin(), vec.end(), val), vec.end());
+	vec.erase(std::remove(vec.begin(), vec.end(), val), vec.end());
 }
 
 template <typename T>
 void vectorRemoveByIndex(std::vector<T>& vec, const size_t index)
 {
-    vec.erase(vec.begin() + index);
+	vec.erase(vec.begin() + index);
 }
 
-template<typename T1, typename T2>
-int match_any_of(T1 value, T2 compareTo)
+template<typename T1, typename... Types>
+bool match_any_of(T1&& value, Types&&... others)
 {
-    return value == compareTo;
-}
-
-template<typename T1, typename T2, typename... Types>
-bool match_any_of(T1 value, T2 compareTo, Types&&... others)
-{
-    return value == compareTo || match_any_of(value, others...);
+	return ((value == others) || ...);
 }
 
 // we cache the frequency in a static variable
 [[nodiscard]] static std::chrono::high_resolution_clock::time_point now_cached() noexcept
 {
 #ifdef _WIN32
-    // get current time
+	// get current time
 	static const long long _Freq = _Query_perf_frequency();	// doesn't change after system boot
 	const long long _Ctr = _Query_perf_counter();
 	static_assert(std::nano::num == 1, "This assumes period::num == 1.");
@@ -460,14 +454,14 @@ bool match_any_of(T1 value, T2 compareTo, Types&&... others)
 	const long long _Part = (_Ctr % _Freq) * std::nano::den / _Freq;
 	return (std::chrono::high_resolution_clock::time_point(std::chrono::nanoseconds(_Whole + _Part)));
 #else
-    return std::chrono::high_resolution_clock::now();
+	return std::chrono::high_resolution_clock::now();
 #endif
 }
 
 [[nodiscard]] static std::chrono::steady_clock::time_point tick_cached() noexcept
 {
 #if BOOST_OS_WINDOWS
-    // get current time
+	// get current time
 	static const long long _Freq = _Query_perf_frequency();	// doesn't change after system boot
 	const long long _Ctr = _Query_perf_counter();
 	static_assert(std::nano::num == 1, "This assumes period::num == 1.");
@@ -490,25 +484,25 @@ bool match_any_of(T1 value, T2 compareTo, Types&&... others)
 
 inline const char* _utf8WrapperPtr(const char8_t* input)
 {
-    // use with care
-    return (const char*)input;
+	// use with care
+	return (const char*)input;
 }
 
 inline std::string_view _utf8Wrapper(std::u8string_view input)
 {
-    std::basic_string_view<char> v((char*)input.data(), input.size());
-    return v;
+	std::basic_string_view<char> v((char*)input.data(), input.size());
+	return v;
 }
 
 // convert fs::path to utf8 encoded string
 inline std::string _pathToUtf8(const fs::path& path)
 {
 #if __ANDROID__
-    return path.generic_string();
+	return path.generic_string();
 #else
-    std::u8string strU8 = path.generic_u8string();
-    std::string v((const char*)strU8.data(), strU8.size());
-    return v;
+	std::u8string strU8 = path.generic_u8string();
+	std::string v((const char*)strU8.data(), strU8.size());
+	return v;
 #endif // __ANDROID__
 }
 
@@ -516,10 +510,10 @@ inline std::string _pathToUtf8(const fs::path& path)
 inline fs::path _utf8ToPath(std::string_view input)
 {
 #if __ANDROID__
-    return fs::path(input);
+	return fs::path(input);
 #else
-    std::basic_string_view<char8_t> v((char8_t*)input.data(), input.size());
-    return fs::path(v);
+	std::basic_string_view<char8_t> v((char8_t*)input.data(), input.size());
+	return fs::path(v);
 #endif // __ANDROID__
 }
 
@@ -534,10 +528,10 @@ inline char _ansiToLower(char c)
 class RunAtCemuBoot // -> replaces this with direct function calls. Linkers other than MSVC may optimize way object files entirely if they are not referenced from outside. So a source file self-registering using this would be causing issues
 {
 public:
-    RunAtCemuBoot(void(*f)())
-    {
-        f();
-    }
+	RunAtCemuBoot(void(*f)())
+	{
+		f();
+	}
 };
 
 // temporary wrapper until Concurrency TS gives us std::future .is_ready()
@@ -545,19 +539,11 @@ template<typename T>
 bool future_is_ready(std::future<T>& f)
 {
 #if defined(__GNUC__)
-    return f.wait_for(std::chrono::nanoseconds(0)) == std::future_status::ready;
+	return f.wait_for(std::chrono::nanoseconds(0)) == std::future_status::ready;
 #else
 	return f._Is_ready();
 #endif
 }
-
-// replace with std::scope_exit once available
-struct scope_exit
-{
-	std::function<void()> f_;
-	explicit scope_exit(std::function<void()> f) noexcept : f_(std::move(f)) {}
-	~scope_exit() { if (f_) f_(); }
-};
 
 // helper function to cast raw pointers to std::atomic
 // this is technically not legal but works on most platforms as long as alignment restrictions are met and the implementation of atomic doesnt come with additional members
@@ -565,7 +551,9 @@ struct scope_exit
 template<typename T>
 std::atomic<T>* _rawPtrToAtomic(T* ptr)
 {
-    return reinterpret_cast<std::atomic<T>*>(ptr);
+	static_assert(sizeof(T) == sizeof(std::atomic<T>));
+	cemu_assert_debug((reinterpret_cast<std::uintptr_t>(ptr) % alignof(std::atomic<T>)) == 0);
+	return reinterpret_cast<std::atomic<T>*>(ptr);
 }
 
 #if defined(__GNUC__) && defined(ARCH_X86_64)
@@ -633,8 +621,29 @@ struct fmt::formatter<betype<T>> : fmt::formatter<T>
 // std::to_underlying
 namespace stdx
 {
-    template <typename EnumT, typename = std::enable_if_t < std::is_enum<EnumT>{} >>
-        constexpr std::underlying_type_t<EnumT> to_underlying(EnumT e) noexcept {
-        return static_cast<std::underlying_type_t<EnumT>>(e);
-    };
+	template <typename EnumT, typename = std::enable_if_t < std::is_enum<EnumT>{} >>
+		constexpr std::underlying_type_t<EnumT> to_underlying(EnumT e) noexcept {
+		return static_cast<std::underlying_type_t<EnumT>>(e);
+	};
+	//std::scope_exit
+	template <typename Fn>
+	class scope_exit
+	{
+		Fn m_func;
+		bool m_released = false;
+	public:
+		explicit scope_exit(Fn&& f) noexcept
+			: m_func(std::forward<Fn>(f))
+		{}
+		~scope_exit()
+		{
+			if (!m_released) m_func();
+		}
+		scope_exit(scope_exit&& other) noexcept
+			: m_func(std::move(other.m_func)), m_released(std::exchange(other.m_released, true))
+		{}
+		scope_exit(const scope_exit&) = delete;
+		scope_exit& operator=(scope_exit) = delete;
+		void release() { m_released = true;}
+	};
 }
