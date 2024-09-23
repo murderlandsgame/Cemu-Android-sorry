@@ -112,6 +112,7 @@ public class EmulationFragment extends Fragment implements PopupMenu.OnMenuItemC
     private PopupMenu settingsMenu;
     private InputOverlaySurfaceView inputOverlaySurfaceView;
     private SensorManager sensorManager;
+    private EmulationViewModel viewModel;
     private boolean hasEmulationError;
 
     public EmulationFragment(String launchPath) {
