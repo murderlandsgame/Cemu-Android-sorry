@@ -272,6 +272,8 @@ void VulkanRenderer::GetDeviceFeatures()
 	physicalDeviceFeatures2.pNext = prevStruct;
 
 	vkGetPhysicalDeviceFeatures2(m_physicalDevice, &physicalDeviceFeatures2);
+	m_featureControl.deviceFeatures.geometry_shader = physicalDeviceFeatures2.features.geometryShader;
+	m_featureControl.deviceFeatures.logic_op = physicalDeviceFeatures2.features.logicOp;
 
 	cemuLog_log(LogType::Force, "Vulkan: present_wait extension: {}", (pwf.presentWait && pidf.presentId) ? "supported" : "unsupported");
 
@@ -465,10 +467,8 @@ VulkanRenderer::VulkanRenderer()
 	deviceFeatures.independentBlend = VK_TRUE;
 	deviceFeatures.samplerAnisotropy = VK_TRUE;
 	deviceFeatures.imageCubeArray = VK_TRUE;
-#if !BOOST_OS_MACOS
-	deviceFeatures.geometryShader = VK_TRUE;
-//	deviceFeatures.logicOp = VK_TRUE;
-#endif
+	deviceFeatures.geometryShader = m_featureControl.deviceFeatures.geometry_shader;
+	deviceFeatures.logicOp = m_featureControl.deviceFeatures.logic_op;
 	deviceFeatures.occlusionQueryPrecise = VK_TRUE;
 	deviceFeatures.depthClamp = VK_TRUE;
 	deviceFeatures.depthBiasClamp = VK_TRUE;
