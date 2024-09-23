@@ -19,7 +19,7 @@ namespace CafeSystemUtils
 			{
 				throw GameBaseFilesNotFoundException();
 			}
-			cafesystem::STATUS_CODE r = CafeSystem::PrepareForegroundTitle(baseTitleId);if (r != CafeSystem::STATUS_CODE::SUCCESS)
+			CafeSystem::STATUS_CODE r = CafeSystem::PrepareForegroundTitle(baseTitleId);if (r != CafeSystem::STATUS_CODE::SUCCESS)
 			{
 				throw UnknownGameFilesException();
 			}
@@ -31,7 +31,7 @@ namespace CafeSystemUtils
 			CafeTitleFileType fileType = DetermineCafeSystemFileType(launchPath);
 			if (fileType == CafeTitleFileType::RPX || fileType == CafeTitleFileType::ELF)
 			{
-				cafesystem::STATUS_CODE r = CafeSystem::PrepareForegroundTitleFromStandaloneRPX(launchPath);if (r != CafeSystem::STATUS_CODE::SUCCESS)
+				CafeSystem::STATUS_CODE r = CafeSystem::PrepareForegroundTitleFromStandaloneRPX(launchPath);if (r != CafeSystem::STATUS_CODE::SUCCESS)
 				{
 					throw UnknownGameFilesException();
 				}
