@@ -8,7 +8,7 @@ import android.graphics.Rect;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import info.cemu.Cemu.NativeLibrary;
+import info.cemu.Cemu.nativeinterface.NativeInput;
 
 public class InputOverlaySettingsProvider {
     public enum Input {
@@ -222,7 +222,7 @@ public class InputOverlaySettingsProvider {
         }
 
         public void setControllerIndex(int controllerIndex) {
-            this.controllerIndex = Math.min(Math.max(controllerIndex, 0), NativeLibrary.MAX_CONTROLLERS - 1);
+            this.controllerIndex = Math.min(Math.max(controllerIndex, 0), NativeInput.MAX_CONTROLLERS - 1);
         }
 
         public int getControllerIndex() {
