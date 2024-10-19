@@ -21,7 +21,6 @@ import info.cemu.Cemu.guibasecomponents.SingleSelectionRecyclerViewItem;
 import info.cemu.Cemu.guibasecomponents.SliderRecyclerViewItem;
 import info.cemu.Cemu.nativeinterface.NativeSettings;
 
-
 public class OverlaySettingsFragment extends Fragment {
     private static int overlayScreenPositionToResourceNameId(int overlayScreenPosition) {
         return switch (overlayScreenPosition) {

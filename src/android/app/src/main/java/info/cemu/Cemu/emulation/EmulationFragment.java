@@ -279,7 +279,6 @@ public class EmulationFragment extends Fragment implements PopupMenu.OnMenuItemC
         settingsMenu.getMenuInflater().inflate(R.menu.menu_emulation_in_game, settingsMenu.getMenu());
         settingsMenu.setOnMenuItemClickListener(EmulationFragment.this);
         binding.emulationSettingsButton.setOnClickListener(v -> settingsMenu.show());
-
         var menu = settingsMenu.getMenu();
         menu.findItem(R.id.show_input_overlay).setChecked(overlaySettings.isOverlayEnabled());
         if (!overlaySettings.isOverlayEnabled()) {
@@ -288,7 +287,6 @@ public class EmulationFragment extends Fragment implements PopupMenu.OnMenuItemC
             inputOverlaySurfaceView.setVisibility(View.GONE);
         }
         SurfaceView mainCanvas = binding.mainCanvas;
-
         try {
             NativeEmulation.initializerRenderer(testSurface);
         } catch (NativeException exception) {
@@ -340,5 +338,5 @@ public class EmulationFragment extends Fragment implements PopupMenu.OnMenuItemC
         if (viewModel == null)
             return;
         viewModel.setEmulationError(new EmulationError(errorMessage));
-    } 
+    }
 }

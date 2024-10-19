@@ -86,6 +86,7 @@ public class GraphicsSettingsFragment extends Fragment {
                     selectionRecyclerViewItem.setDescription(getString(fullscreenScalingModeToResourceNameId(fullscreenScaling)));
                 });
         genericRecyclerViewAdapter.addRecyclerViewItem(fullscreenScalingSelection);
+
         var scalingFilterChoices = Stream.of(
                         NativeSettings.SCALING_FILTER_BILINEAR_FILTER,
                         NativeSettings.SCALING_FILTER_BICUBIC_FILTER,
@@ -93,6 +94,7 @@ public class GraphicsSettingsFragment extends Fragment {
                         NativeSettings.SCALING_FILTER_NEAREST_NEIGHBOR_FILTER
                 ).map(scalingFilter -> new SelectionAdapter.ChoiceItem<>(t -> t.setText(scalingFilterToResourceNameId(scalingFilter)), scalingFilter))
                 .collect(Collectors.toList());
+
         var upscaleFilterMode = NativeSettings.getUpscalingFilter();
         SelectionAdapter<Integer> upscaleFilterSelectionAdapter = new SelectionAdapter<>(scalingFilterChoices, upscaleFilterMode);
         SingleSelectionRecyclerViewItem<Integer> upscaleFilterSelection = new SingleSelectionRecyclerViewItem<>(getString(R.string.upscale_filter),
@@ -102,6 +104,7 @@ public class GraphicsSettingsFragment extends Fragment {
                     selectionRecyclerViewItem.setDescription(getString(scalingFilterToResourceNameId(upscaleFilter)));
                 });
         genericRecyclerViewAdapter.addRecyclerViewItem(upscaleFilterSelection);
+
         var downscaleFilterMode = NativeSettings.getDownscalingFilter() ;
         SelectionAdapter<Integer> downscaleFilterSelectionAdapter = new SelectionAdapter<>(scalingFilterChoices, downscaleFilterMode);
         SingleSelectionRecyclerViewItem<Integer> downscaleFilterSelection = new SingleSelectionRecyclerViewItem<>(getString(R.string.downscale_filter),

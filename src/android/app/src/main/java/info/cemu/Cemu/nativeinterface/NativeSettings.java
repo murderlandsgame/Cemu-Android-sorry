@@ -23,15 +23,22 @@ public class NativeSettings {
 
     public static final int FULLSCREEN_SCALING_KEEP_ASPECT_RATIO = 0;
     public static final int FULLSCREEN_SCALING_STRETCH = 1;
+
     public static native int getFullscreenScaling();
+
     public static native void setFullscreenScaling(int fullscreenScaling);
+
     public static final int SCALING_FILTER_BILINEAR_FILTER = 0;
     public static final int SCALING_FILTER_BICUBIC_FILTER = 1;
     public static final int SCALING_FILTER_BICUBIC_HERMITE_FILTER = 2;
     public static final int SCALING_FILTER_NEAREST_NEIGHBOR_FILTER = 3;
+
     public static native int getUpscalingFilter();
+
     public static native void setUpscalingFilter(int upscalingFilter);
+
     public static native int getDownscalingFilter();
+
     public static native void setDownscalingFilter(int downscalingFilter);
 
     public static native boolean getAccurateBarriers();
@@ -71,8 +78,11 @@ public class NativeSettings {
 
     public static final int OVERLAY_TEXT_SCALE_MIN = 50;
     public static final int OVERLAY_TEXT_SCALE_MAX = 300;
+
     public static native int getOverlayTextScalePercentage();
+
     public static native void setOverlayTextScalePercentage(int scalePercentage);
+
 
     public static native boolean isOverlayFPSEnabled();
 
@@ -103,6 +113,7 @@ public class NativeSettings {
     public static native void setNotificationsPosition(int position);
 
     public static native int getNotificationsTextScalePercentage();
+
     public static native void setNotificationsTextScalePercentage(int scalePercentage);
 
     public static native boolean isNotificationControllerProfilesEnabled();

@@ -78,6 +78,7 @@ public class EmulationActivity extends AppCompatActivity implements Observer<Emu
                     .add(R.id.emulation_frame, emulationFragment)
                     .commit();
         }
+
     }
 
     private void showExitConfirmationDialog() {

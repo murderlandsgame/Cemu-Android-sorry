@@ -129,7 +129,7 @@ public class InputOverlaySettingsProvider {
         int leftJoystickCentreX = (int) (width * 0.25f);
         int joystickCentreY = (int) (height * 0.55f);
         int joystickClickRadius = (int) (joystickRadius * 0.7f);
-
+        // TODO: move this to res?
         return switch (input) {
             case A -> new Rect(abxyButtonsCentreX + roundButtonRadius,
                     abxyButtonsCentreY - roundButtonRadius,

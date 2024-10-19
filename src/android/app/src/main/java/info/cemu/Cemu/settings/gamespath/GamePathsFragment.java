@@ -48,18 +48,17 @@ public class GamePathsFragment extends Fragment {
                 return;
             }
             Uri uri = Objects.requireNonNull(data.getData());
-
             requireActivity().getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             DocumentFile documentFile = DocumentFile.fromTreeUri(requireContext(), uri);
             if (documentFile == null) return;
-                String gamesPath = documentFile.getUri().toString();
-                if (gamesPaths.stream().anyMatch(p -> p.equals(gamesPath))) {
-                    Toast.makeText(requireContext(), R.string.game_path_already_added, Toast.LENGTH_LONG).show();
-                    return;
-                }
-                NativeSettings.addGamesPath(gamesPath);
-                gamesPaths = Stream.concat(Stream.of(gamesPath), gamesPaths.stream()).collect(Collectors.toList());
-                gamePathAdapter.submitList(gamesPaths);
+            String gamesPath = documentFile.getUri().toString();
+            if (gamesPaths.stream().anyMatch(p -> p.equals(gamesPath))) {
+                Toast.makeText(requireContext(), R.string.game_path_already_added, Toast.LENGTH_LONG).show();
+                return;
+            }
+            NativeSettings.addGamesPath(gamesPath);
+            gamesPaths = Stream.concat(Stream.of(gamesPath), gamesPaths.stream()).collect(Collectors.toList());
+            gamePathAdapter.submitList(gamesPaths);
         });
         gamePathAdapter = new GamePathAdapter(path -> {
             NativeSettings.removeGamesPath(path);

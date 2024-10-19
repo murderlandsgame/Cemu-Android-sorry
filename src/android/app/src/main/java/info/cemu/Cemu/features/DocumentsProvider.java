@@ -34,7 +34,6 @@ public class DocumentsProvider extends android.provider.DocumentsProvider {
         }
     }
 
-
     private final String[] DEFAULT_ROOT_PROJECTION = {
             DocumentsContract.Root.COLUMN_ROOT_ID,
             DocumentsContract.Root.COLUMN_MIME_TYPES,
@@ -120,6 +119,7 @@ public class DocumentsProvider extends android.provider.DocumentsProvider {
         if (!file.delete())
             throw new FileNotFoundException("Couldn't delete document with ID " + documentId);
     }
+
     private void deleteFolder(File dirFile) throws FileNotFoundException {
         if (!dirFile.isDirectory())
             return;
@@ -160,7 +160,7 @@ public class DocumentsProvider extends android.provider.DocumentsProvider {
         var sourceFile = getFile(documentId);
         var sourceParentFile = sourceFile.getParentFile();
         if (sourceParentFile == null)
-            throw new FileNotFoundException("Couldn't rename document " + documentId + " as it has no parent");
+            throw new FileNotFoundException("Couldn't rename document '" + documentId + "' as it has no parent");
         var destFile = resolve(sourceParentFile, displayName);
 
         try {
