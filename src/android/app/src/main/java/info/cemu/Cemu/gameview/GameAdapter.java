@@ -1,12 +1,10 @@
 package info.cemu.Cemu.gameview;
 
-import android.opengl.Visibility;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -58,7 +57,10 @@ public class GameAdapter extends ListAdapter<Game, GameAdapter.ViewHolder> {
     @Override
     public void submitList(@Nullable List<Game> list) {
         orignalGameList = list;
-        if (filterText == null || filterText.isBlank() || orignalGameList == null) {
+        if (orignalGameList == null) {
+            orignalGameList = new ArrayList<>();
+        }
+        if (filterText == null || filterText.isBlank()) {
             super.submitList(orignalGameList);
             return;
         }

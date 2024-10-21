@@ -1,7 +1,5 @@
 package info.cemu.Cemu.gameview;
 
-import static info.cemu.Cemu.nativeinterface.NativeGameTitles.*;
-
 import androidx.lifecycle.ViewModel;
 
 import info.cemu.Cemu.nativeinterface.NativeGameTitles;
