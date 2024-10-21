@@ -1,8 +1,8 @@
 package info.cemu.Cemu.gameview;
 
-import androidx.lifecycle.ViewModel;
+import static info.cemu.Cemu.nativeinterface.NativeGameTitles.*;
 
-import info.cemu.Cemu.nativeinterface.NativeGameTitles;
+import androidx.lifecycle.ViewModel;
 
 public class GameViewModel extends ViewModel {
     private Game game = null;
