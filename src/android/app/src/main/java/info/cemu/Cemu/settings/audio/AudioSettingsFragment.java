@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import info.cemu.Cemu.R;
-import info.cemu.Cemu.databinding.GenericRecyclerViewLayoutBinding;
+import info.cemu.Cemu.databinding.LayoutGenericRecyclerViewBinding;
 import info.cemu.Cemu.guibasecomponents.ToggleRecyclerViewItem;
 import info.cemu.Cemu.guibasecomponents.GenericRecyclerViewAdapter;
 import info.cemu.Cemu.guibasecomponents.SelectionAdapter;
@@ -33,12 +33,11 @@ public class AudioSettingsFragment extends Fragment {
     }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        var binding = GenericRecyclerViewLayoutBinding.inflate(inflater, container, false);
+        var binding = LayoutGenericRecyclerViewBinding.inflate(inflater, container, false);
 
         GenericRecyclerViewAdapter genericRecyclerViewAdapter = new GenericRecyclerViewAdapter();
 
-        SliderRecyclerViewItem latencySlider = new SliderRecyclerViewItem(
-                getString(R.string.audio_latency),
+        SliderRecyclerViewItem latencySlider = new SliderRecyclerViewItem(getString(R.string.audio_latency),
                 0,
                 NativeSettings.AUDIO_BLOCK_COUNT - 1,
                 NativeSettings.getAudioLatency(),
@@ -46,8 +45,7 @@ public class AudioSettingsFragment extends Fragment {
                 value -> (int) (value * 12) + "ms");
         genericRecyclerViewAdapter.addRecyclerViewItem(latencySlider);
 
-        ToggleRecyclerViewItem tvDeviceToggle = new ToggleRecyclerViewItem(
-                getString(R.string.tv),
+        ToggleRecyclerViewItem tvDeviceToggle = new ToggleRecyclerViewItem(getString(R.string.tv),
                 getString(R.string.tv_audio_description), NativeSettings.getAudioDeviceEnabled(true),
                 checked -> NativeSettings.setAudioDeviceEnabled(checked, true));
         genericRecyclerViewAdapter.addRecyclerViewItem(tvDeviceToggle);
@@ -73,8 +71,7 @@ public class AudioSettingsFragment extends Fragment {
                 value -> (int) value + "%");
         genericRecyclerViewAdapter.addRecyclerViewItem(tvVolumeSlider);
 
-        ToggleRecyclerViewItem padDeviceToggle = new ToggleRecyclerViewItem(
-                getString(R.string.gamepad),
+        ToggleRecyclerViewItem padDeviceToggle = new ToggleRecyclerViewItem(getString(R.string.gamepad),
                 getString(R.string.gamepad_audio_description), NativeSettings.getAudioDeviceEnabled(false),
                 checked -> NativeSettings.setAudioDeviceEnabled(checked, false));
         genericRecyclerViewAdapter.addRecyclerViewItem(padDeviceToggle);

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import info.cemu.Cemu.R;
-import info.cemu.Cemu.databinding.GenericRecyclerViewLayoutBinding;
+import info.cemu.Cemu.databinding.LayoutGenericRecyclerViewBinding;
 import info.cemu.Cemu.guibasecomponents.ToggleRecyclerViewItem;
 import info.cemu.Cemu.guibasecomponents.GenericRecyclerViewAdapter;
 import info.cemu.Cemu.guibasecomponents.SelectionAdapter;
@@ -51,14 +51,11 @@ public class GraphicsSettingsFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        var binding = GenericRecyclerViewLayoutBinding.inflate(inflater, container, false);
+        var binding = LayoutGenericRecyclerViewBinding.inflate(inflater, container, false);
 
         GenericRecyclerViewAdapter genericRecyclerViewAdapter = new GenericRecyclerViewAdapter();
 
-        ToggleRecyclerViewItem asyncShaderToggle = new ToggleRecyclerViewItem(
-                getString(R.string.async_shader_compile),
-                getString(R.string.async_shader_compile_description), NativeSettings.getAsyncShaderCompile(),
-                NativeSettings::setAsyncShaderCompile);
+        ToggleRecyclerViewItem asyncShaderToggle = new ToggleRecyclerViewItem(getString(R.string.async_shader_compile), getString(R.string.async_shader_compile_description), NativeSettings.getAsyncShaderCompile(), NativeSettings::setAsyncShaderCompile);
         genericRecyclerViewAdapter.addRecyclerViewItem(asyncShaderToggle);
 
         int vsyncMode = NativeSettings.getVSyncMode();
@@ -66,8 +63,7 @@ public class GraphicsSettingsFragment extends Fragment {
                 .map(vsync -> new SelectionAdapter.ChoiceItem<>(t -> t.setText(vsyncModeToResourceNameId(vsync)), vsync))
                 .collect(Collectors.toList());
         SelectionAdapter<Integer> vsyncSelectionAdapter = new SelectionAdapter<>(vsyncChoices, vsyncMode);
-        SingleSelectionRecyclerViewItem<Integer> vsyncModeSelection = new SingleSelectionRecyclerViewItem<>(
-                getString(R.string.vsync),
+        SingleSelectionRecyclerViewItem<Integer> vsyncModeSelection = new SingleSelectionRecyclerViewItem<>(getString(R.string.vsync),
                 getString(vsyncModeToResourceNameId(vsyncMode)), vsyncSelectionAdapter,
                 (vsync, selectionRecyclerViewItem) -> {
                     NativeSettings.setVSyncMode(vsync);
@@ -75,10 +71,7 @@ public class GraphicsSettingsFragment extends Fragment {
                 });
         genericRecyclerViewAdapter.addRecyclerViewItem(vsyncModeSelection);
 
-        ToggleRecyclerViewItem accurateBarriersToggle = new ToggleRecyclerViewItem(
-                getString(R.string.accurate_barriers),
-                getString(R.string.accurate_barriers_description), NativeSettings.getAccurateBarriers(),
-                NativeSettings::setAccurateBarriers);
+        ToggleRecyclerViewItem accurateBarriersToggle = new ToggleRecyclerViewItem(getString(R.string.accurate_barriers), getString(R.string.accurate_barriers_description), NativeSettings.getAccurateBarriers(), NativeSettings::setAccurateBarriers);
         genericRecyclerViewAdapter.addRecyclerViewItem(accurateBarriersToggle);
 
         int fullscreenScalingMode = NativeSettings.getFullscreenScaling();
