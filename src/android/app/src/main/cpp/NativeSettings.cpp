@@ -136,6 +136,7 @@ Java_info_cemu_Cemu_nativeinterface_NativeSettings_getNotificationsTextScalePerc
 {
 	return g_config.data().notification.text_scale;
 }
+
 extern "C" [[maybe_unused]] JNIEXPORT void JNICALL
 Java_info_cemu_Cemu_nativeinterface_NativeSettings_setNotificationsTextScalePercentage([[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass clazz, jint scalePercentage)
 {
@@ -246,6 +247,7 @@ Java_info_cemu_Cemu_nativeinterface_NativeSettings_setUpscalingFilter([[maybe_un
 	g_config.data().upscale_filter = upscaling_filter;
 	g_config.Save();
 }
+
 extern "C" [[maybe_unused]] JNIEXPORT jboolean JNICALL
 Java_info_cemu_Cemu_nativeinterface_NativeSettings_getUpscalingFilter([[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass clazz)
 {
@@ -258,6 +260,7 @@ Java_info_cemu_Cemu_nativeinterface_NativeSettings_setDownscalingFilter([[maybe_
 	g_config.data().downscale_filter = downscaling_filter;
 	g_config.Save();
 }
+
 extern "C" [[maybe_unused]] JNIEXPORT jboolean JNICALL
 Java_info_cemu_Cemu_nativeinterface_NativeSettings_getDownscalingFilter([[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass clazz)
 {
@@ -270,6 +273,7 @@ Java_info_cemu_Cemu_nativeinterface_NativeSettings_setFullscreenScaling([[maybe_
 	g_config.data().fullscreen_scaling = fullscreen_scaling;
 	g_config.Save();
 }
+
 extern "C" [[maybe_unused]] JNIEXPORT jboolean JNICALL
 Java_info_cemu_Cemu_nativeinterface_NativeSettings_getFullscreenScaling([[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass clazz)
 {
@@ -336,9 +340,23 @@ Java_info_cemu_Cemu_nativeinterface_NativeSettings_getAudioLatency([[maybe_unuse
 {
 	return g_config.data().audio_delay;
 }
+
 extern "C" [[maybe_unused]] JNIEXPORT void JNICALL
 Java_info_cemu_Cemu_nativeinterface_NativeSettings_setAudioLatency([[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass clazz, jint latency)
 {
 	g_config.data().audio_delay = latency;
+	g_config.Save();
+}
+
+extern "C" [[maybe_unused]] JNIEXPORT jint JNICALL
+Java_info_cemu_Cemu_nativeinterface_NativeSettings_getConsoleLanguage([[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass clazz)
+{
+	return static_cast<jint>(g_config.data().console_language.GetValue());
+}
+
+extern "C" [[maybe_unused]] JNIEXPORT void JNICALL
+Java_info_cemu_Cemu_nativeinterface_NativeSettings_setConsoleLanguage([[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass clazz, jint console_language)
+{
+	g_config.data().console_language = static_cast<CafeConsoleLanguage>(console_language);
 	g_config.Save();
 }
