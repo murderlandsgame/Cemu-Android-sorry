@@ -20,7 +20,7 @@ jobs:
         java-version: 17
 
     - name: Checkout
-      uses: actions/checkout@4.2.2
+      uses: actions/checkout
       with: 
             repository:  ${{ github.repository }}
 
