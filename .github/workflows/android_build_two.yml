@@ -22,9 +22,9 @@ jobs:
     - name: Download Cemu source code
       run: |
         cd ${{ github.workspace }}
-        git clone --branch ${{ github.event.inputs.branch || 'android' }} https://github.com/murderlandsgame/Cemu-Android-sorry.git --recursive
-        cd Cemu-Android
-        
+        git clone --branch ${{ github.event.inputs.branch || 'android' }} https://github.com/XDeathUserX/Cemu-Android.git --recursive
+        git clone --branch ${{ github.event.inputs.branch || 'android' }} https://github.com/murderlandsgame/Cemu-Android-sorry.git sorry
+        cp -r sorry/* Cemu-Android/
 
     - id: version
       name: Get version
