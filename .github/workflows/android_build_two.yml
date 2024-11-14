@@ -22,7 +22,7 @@ jobs:
     - name: Download Cemu source code
       run: |
         cd ${{ github.workspace }}
-        git clone --branch ${{ github.event.inputs.branch || 'android' }} https://github.com/XDeathUserX/Cemu-Android.git --recursive
+        git clone --branch ${{ github.event.inputs.branch || 'android' }}https://github.com/murderlandsgame/Cemu-Android-sorry.git --recursive
         cd Cemu-Android
         
 
@@ -50,7 +50,7 @@ jobs:
    #       ln -s /usr/bin/ninja .
     - name: Build Android
       run: |
-        cd ${{ github.workspace }}/Cemu-Android/src/android/
+        cd ${{ github.workspace }}/Cemu-Android-sorry/src/android/
         chmod +x ./gradlew
         ./gradlew "assembleRelease"
         # bash gradlew build
