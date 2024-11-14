@@ -32,7 +32,7 @@ jobs:
         echo "hash=$(git log -1 --pretty=format:%H)" >> $GITHUB_OUTPUT
         echo "short_hash=$(git describe --always --long)" >> $GITHUB_OUTPUT
         echo "version=$(git describe --tags --always)" >> $GITHUB_OUTPUT
-        git submodule update --init --recursive
+        git submodule update --init 
     - name: Set up cache
       uses: actions/cache@v4
       with:
