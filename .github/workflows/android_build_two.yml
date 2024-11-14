@@ -19,12 +19,10 @@ jobs:
         distribution: temurin
         java-version: 17
 
-    - name: Download Cemu source code
-      run: |
-        cd ${{ github.workspace }}
-        git clone --branch ${{ github.event.inputs.branch || 'android' }} https://github.com/XDeathUserX/Cemu-Android.git --recursive
-        git clone --branch ${{ github.event.inputs.branch || 'android' }} https://github.com/murderlandsgame/Cemu-Android-sorry.git sorry
-        cp -r sorry/* Cemu-Android/
+    - name: Checkout
+      uses: actions/checkout@4.2.2
+      with: 
+            repository:  ${{ github.repository }}
 
     - id: version
       name: Get version
